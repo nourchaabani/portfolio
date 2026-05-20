@@ -405,6 +405,26 @@
     /* --- Pill interactive --- */
     .pill{transition:all .2s cubic-bezier(.4,0,.2,1)}
 
+    /* ====== TERMINAL SECTION ====== */
+    #terminal{background:var(--surface)}
+    .term-wrap{background:#0d1117;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;max-width:800px;margin:0 auto;font-family:'JetBrains Mono',monospace;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+    .term-titlebar{background:#1c1c1e;padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
+    .term-btn{width:12px;height:12px;border-radius:50%;flex-shrink:0;cursor:default}
+    .term-close{background:#FF5F57}.term-min{background:#FEBC2E}.term-max{background:#28C840}
+    .term-title{margin-left:.85rem;font-size:.76rem;color:rgba(255,255,255,.38);letter-spacing:.05em}
+    .term-body{padding:1.25rem 1.6rem;min-height:300px;max-height:400px;overflow-y:auto;font-size:.81rem;line-height:1.75;color:#00e5ff}
+    .term-body::-webkit-scrollbar{width:3px}.term-body::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+    .term-line{margin-bottom:.1rem;white-space:pre-wrap;word-break:break-word}
+    .tc-cmd{color:#f1f5f9}.tc-key{color:#a78bfa;font-weight:600}.tc-val{color:#00e5ff}.tc-dim{color:#475569}.tc-err{color:#f87171}.tc-success{color:#34d399}
+    .term-input-row{display:flex;align-items:center;gap:.55rem;padding:.65rem 1.6rem 1.1rem;border-top:1px solid rgba(255,255,255,.06)}
+    .term-ps{color:#475569;font-family:'JetBrains Mono',monospace;font-size:.81rem;flex-shrink:0;user-select:none}
+    .term-input{flex:1;background:transparent;border:none;outline:none;color:#f1f5f9;font-family:'JetBrains Mono',monospace;font-size:.81rem;caret-color:#06B6D4}
+    .term-input::placeholder{color:#1e293b}
+    .term-hint{text-align:center;margin-top:1rem;font-size:.78rem;color:var(--text-3);font-family:'JetBrains Mono',monospace}
+    .term-hint span{color:var(--cyan);cursor:pointer}
+    .term-hint span:hover{text-decoration:underline}
+    @media(max-width:600px){.term-body{font-size:.74rem;padding:1rem 1rem;min-height:260px}.term-input-row{padding:.5rem 1rem .9rem}}
+
   </style>
 </head>
 <body>
@@ -791,6 +811,31 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TERMINAL -->
+<section id="terminal">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem">
+      <div class="section-label" style="justify-content:center">Interactive</div>
+      <h2 class="section-title">Interactive Terminal</h2>
+      <p style="color:var(--text-2);font-size:1.05rem">Explore my profile through commands</p>
+    </div>
+    <div class="term-wrap reveal d1">
+      <div class="term-titlebar">
+        <span class="term-btn term-close"></span>
+        <span class="term-btn term-min"></span>
+        <span class="term-btn term-max"></span>
+        <span class="term-title">nour@portfolio ~ %</span>
+      </div>
+      <div class="term-body" id="term-body"></div>
+      <div class="term-input-row">
+        <span class="term-ps">$</span>
+        <input class="term-input" id="term-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" placeholder="type a command and press Enter..." aria-label="Terminal input" />
+      </div>
+    </div>
+    <p class="term-hint">Try: <span onclick="termRun('about')">about</span> · <span onclick="termRun('skills')">skills</span> · <span onclick="termRun('projects')">projects</span> · <span onclick="termRun('experience')">experience</span> · <span onclick="termRun('contact')">contact</span></p>
   </div>
 </section>
 
@@ -1362,6 +1407,151 @@ if(!isTouch){
     });
   });
 }
+
+// ── Interactive Terminal ──
+const TERM_COMMANDS = {
+  help: ()=>[
+    {c:'key', v:'Available commands:'},
+    {c:'val', v:'  about           → Who am I'},
+    {c:'val', v:'  skills          → Full technical stack'},
+    {c:'val', v:'  experience      → Work history'},
+    {c:'val', v:'  projects        → Featured AI projects'},
+    {c:'val', v:'  certifications  → Certs & distinctions'},
+    {c:'val', v:'  contact         → Get in touch'},
+    {c:'val', v:'  clear           → Clear the terminal'},
+  ],
+  about: ()=>[
+    {c:'key', v:'Nour Chaabani — AI Engineer'},
+    {c:'val', v:'  Final-year Data Science Engineer at ESPRIT (2021–2026).'},
+    {c:'val', v:'  I architect end-to-end AI systems that ship to production:'},
+    {c:'val', v:'  LLM fine-tuning · RAG pipelines · MLOps · Computer Vision.'},
+    {c:'dim', v:''},
+    {c:'val', v:'  Location : Tunis, Tunisia (open to relocation)'},
+    {c:'val', v:'  Status   : Seeking full-time AI Engineer roles'},
+    {c:'success', v:'  → 5 internships · 12+ AI projects · NVIDIA certified'},
+  ],
+  skills: ()=>[
+    {c:'key', v:'Technical Stack:'},
+    {c:'val', v:'  AI/ML      PyTorch · TensorFlow · Scikit-learn · HuggingFace · XGBoost · OpenCV'},
+    {c:'val', v:'  LLM/RAG    LangChain · AutoGen · RAG · ChromaDB · Groq · Llama 3.3-70B'},
+    {c:'val', v:'  Backend    FastAPI · Django · Node.js · Python · Symfony · REST APIs'},
+    {c:'val', v:'  Cloud      Docker · Kubernetes · AWS · Azure AI · CI/CD · GitHub Actions'},
+    {c:'val', v:'  Data       PostgreSQL · MongoDB · FAISS · Neo4j · ChromaDB · MySQL'},
+    {c:'val', v:'  Frontend   React 19 · JavaScript · HTML/CSS'},
+  ],
+  experience: ()=>[
+    {c:'key', v:'Work Experience:'},
+    {c:'val', v:'  [Feb–Jun 2026]  AI Credit Risk Engineer @ Amen Bank'},
+    {c:'dim', v:'                  Credit scoring platform · RAG chatbot · IFRS 9 · Basel III'},
+    {c:'val', v:'  [Jun–Aug 2025]  AI Engineer Intern @ Value'},
+    {c:'dim', v:'                  Agentic AI · LangChain · AutoGen · Azure AI · Power Automate'},
+    {c:'val', v:'  [Jan–Jun 2025]  AI Engineer Intern @ Value'},
+    {c:'dim', v:'                  VigilantX · RAG · Microservices · 10,000+ daily requests'},
+    {c:'success', v:'                  🏆 Best Project of the Year — ESPRIT 2025'},
+    {c:'val', v:'  [Jun–Aug 2024]  Software Engineer Intern @ Sahara & Sahel Observatory'},
+    {c:'val', v:'  [Jun–Jul 2022]  Networking Intern @ EO Data Center'},
+  ],
+  projects: ()=>[
+    {c:'key', v:'Featured Projects (7 of 12+):'},
+    {c:'val', v:'  1. AI Credit Risk Platform    Amen Bank · Gini 0.43 · 22K records · IFRS 9'},
+    {c:'val', v:'  2. VigilantX                  AI Due Diligence · 10K+ req/day · 99.9% uptime'},
+    {c:'val', v:'  3. Agentic Intel Platform      LangChain · AutoGen · Azure · self-updating KB'},
+    {c:'val', v:'  4. Fraud Detection Pipeline   XGBoost · 93% recall · Docker · Streamlit'},
+    {c:'val', v:'  5. AI CV Ranking System        HuggingFace · 92% F1-score · 3K+ resumes'},
+    {c:'val', v:'  6. Brain Tumor Detection       DenseNet121 · 94% accuracy · MRI scans'},
+    {c:'val', v:'  7. Churn Prediction MLOps      XGBoost · 87% F1 · 60% faster via CI/CD'},
+    {c:'dim', v:''},
+    {c:'success', v:'  → scroll up to see full project details with screenshots'},
+  ],
+  certifications: ()=>[
+    {c:'key', v:'Certifications & Distinctions:'},
+    {c:'val', v:'  🟢 Building Transformer-Based NLP Apps   NVIDIA Deep Learning Institute / 2025'},
+    {c:'val', v:'  🟢 Evaluation & Customization of LLMs   NVIDIA Deep Learning Institute / 2025'},
+    {c:'val', v:'  🔷 Hashgraph Developer                  Hedera / 2025'},
+    {c:'val', v:'  🟠 AWS Academy Cloud Foundations        Amazon Web Services'},
+    {c:'dim', v:''},
+    {c:'success', v:'  🏆 Best Project of the Year — ESPRIT Project Gala 12th Edition (2025)'},
+    {c:'success', v:'  🎖️ ESPRIT Project Gala 9th Edition — 2021'},
+  ],
+  contact: ()=>[
+    {c:'key', v:'Contact:'},
+    {c:'val', v:'  Email    nour.chaabani@esprit.tn'},
+    {c:'val', v:'  LinkedIn linkedin.com/in/nour-chaabani-188b66244'},
+    {c:'val', v:'  Site     portfolio-nour-chaabani.vercel.app'},
+    {c:'dim', v:''},
+    {c:'success', v:'  ✓ Available for full-time positions — Tunis, Tunisia — open to relocation'},
+  ],
+};
+
+function termPrint(lines){
+  const body=document.getElementById('term-body');
+  if(!body) return;
+  lines.forEach(l=>{
+    const d=document.createElement('div');
+    d.className='term-line tc-'+(l.c||'val');
+    d.textContent=l.v;
+    body.appendChild(d);
+  });
+  body.scrollTop=body.scrollHeight;
+}
+
+function termRun(raw){
+  const body=document.getElementById('term-body');
+  const input=document.getElementById('term-input');
+  const cmd=(raw||'').trim().toLowerCase();
+  if(!body) return;
+  // print the command line
+  const cd=document.createElement('div');
+  cd.className='term-line tc-cmd';
+  cd.textContent='$ '+cmd;
+  body.appendChild(cd);
+  if(cmd==='clear'){body.innerHTML='';return;}
+  if(!cmd) return;
+  if(TERM_COMMANDS[cmd]){
+    const out=TERM_COMMANDS[cmd]();
+    termPrint(out);
+    termPrint([{c:'dim',v:''}]);
+  } else {
+    termPrint([{c:'err',v:'  command not found: "'+cmd+'" — type "help" for a list of commands.'}]);
+    termPrint([{c:'dim',v:''}]);
+  }
+  if(input) input.value='';
+}
+
+(function initTerminal(){
+  const body=document.getElementById('term-body');
+  const input=document.getElementById('term-input');
+  if(!body||!input) return;
+
+  // Welcome
+  termPrint([
+    {c:'success', v:'Welcome! Type "help" to see available commands.'},
+    {c:'dim', v:''},
+  ]);
+
+  // Input handler
+  input.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){ termRun(input.value); }
+  });
+  // Click body → focus input
+  body.addEventListener('click',()=>input.focus());
+
+  // Auto-demo "help" when section scrolls into view
+  let demoPlayed=false;
+  const demoObs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting && !demoPlayed){
+      demoPlayed=true;
+      const demo='help';
+      let i=0;
+      const t=setInterval(()=>{
+        input.value=demo.slice(0,++i);
+        if(i>=demo.length){ clearInterval(t); setTimeout(()=>termRun(input.value),450); }
+      },90);
+    }
+  },{threshold:.5});
+  const wrap=document.querySelector('.term-wrap');
+  if(wrap) demoObs.observe(wrap);
+})();
 
 // ── Hero parallax on mouse move ──
 if(!isTouch){
