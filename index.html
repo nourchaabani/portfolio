@@ -337,6 +337,18 @@
       .modal{border-radius:16px}
       .modal-header{padding:1.2rem 1.2rem .75rem}
       .modal-body{padding:0 1.2rem 1.5rem}
+      /* terminal */
+      .term-wrap{border-radius:10px}
+      .term-titlebar{padding:.5rem .85rem}
+      .term-body{min-height:240px;max-height:320px;font-size:.75rem;padding:.9rem 1rem;line-height:1.65}
+      .term-input-row{padding:.45rem 1rem .85rem}
+      .term-input{font-size:.75rem}
+      .term-hint{font-size:.74rem;margin-top:.85rem}
+      /* disable hover-scale on touch for stats & timeline */
+      .stat-item:hover .stat-number{transform:none}
+      .tl-item:hover .tl-dot{transform:none}
+      /* slow down float animation on mobile */
+      .about-ring{animation-duration:7s}
     }
     @media (max-width:480px){
       .container{padding:0 1rem}
@@ -347,6 +359,16 @@
       .stat-number{font-size:1.9rem}
       .section-title{font-size:1.8rem}
       .tl-period{font-size:.68rem}
+    }
+
+    /* Respect reduced motion preference */
+    @media(prefers-reduced-motion:reduce){
+      .about-ring{animation:none}
+      .orb{animation:none}
+      .scroll-line{animation:none}
+      .badge-dot{animation:none}
+      .avail-dot{animation:none}
+      .reveal{transition:none}
     }
 
     /* ====== INTERACTIVE UPGRADES ====== */
