@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nour Chaabani — AI Engineer</title>
+  <!-- SEO & Social Preview -->
+  <meta name="description" content="Final-year AI Engineer at ESPRIT. Production-ready AI systems: LLM fine-tuning, RAG pipelines, MLOps, computer vision. 5 internships · 12+ AI projects · NVIDIA certified." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-nour-chaabani.vercel.app/" />
+  <meta property="og:title" content="Nour Chaabani — AI Engineer" />
+  <meta property="og:description" content="Final-year AI Engineer at ESPRIT. I build production-grade AI: LLM fine-tuning, RAG pipelines, MLOps &amp; Computer Vision. 5 internships · 12+ projects · NVIDIA certified." />
+  <meta property="og:image" content="https://portfolio-nour-chaabani.vercel.app/my_image.png" />
+  <meta property="og:image:alt" content="Nour Chaabani — AI Engineer" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Nour Chaabani" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Nour Chaabani — AI Engineer" />
+  <meta name="twitter:description" content="Final-year AI Engineer at ESPRIT. 5 internships · 12+ AI projects · NVIDIA certified." />
+  <meta name="twitter:image" content="https://portfolio-nour-chaabani.vercel.app/my_image.png" />
+  <link rel="canonical" href="https://portfolio-nour-chaabani.vercel.app/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -333,9 +348,68 @@
       .section-title{font-size:1.8rem}
       .tl-period{font-size:.68rem}
     }
+
+    /* ====== INTERACTIVE UPGRADES ====== */
+
+    /* --- Custom Cursor --- */
+    #cursor-dot,#cursor-ring{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);will-change:left,top}
+    #cursor-dot{width:5px;height:5px;background:var(--cyan);opacity:0;transition:opacity .2s,width .18s,height .18s;mix-blend-mode:screen}
+    #cursor-ring{width:34px;height:34px;border:1.5px solid rgba(6,182,212,.42);opacity:0;transition:opacity .2s,width .28s,height .28s,border-color .28s,background .28s}
+    .cursor-on #cursor-dot,.cursor-on #cursor-ring{opacity:1}
+    .cursor-grow #cursor-ring{width:54px;height:54px;border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.04)}
+    @media(pointer:coarse){#cursor-dot,#cursor-ring{display:none!important}}
+
+    /* --- Card Spotlight (mouse-tracking glow) --- */
+    .skill-card{position:relative}
+    .skill-card::after,.proj-card::after{content:'';position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s;border-radius:inherit}
+    .skill-card::after{background:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(6,182,212,.07),transparent 72%)}
+    .proj-card::after{background:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(139,92,246,.07),transparent 72%)}
+    .skill-card:hover::after,.proj-card:hover::after{opacity:1}
+
+    /* --- Feat-card glow on hover --- */
+    .feat-card{transition:border-color .4s,box-shadow .5s}
+    .feat-card:hover{border-color:rgba(6,182,212,.28);box-shadow:0 0 60px rgba(6,182,212,.05)}
+
+    /* --- About ring floating animation --- */
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .about-ring{animation:floatY 5.5s ease-in-out infinite}
+
+    /* --- Stat number scale on hover --- */
+    .stat-item{transition:transform .25s}
+    .stat-item:hover .stat-number{display:inline-block;transform:scale(1.08)}
+
+    /* --- Hero parallax will-change --- */
+    .hero-name,.hero-badge,.hero-roles,.hero-desc,.hero-actions,.orb{will-change:transform}
+
+    /* --- Magnetic buttons --- */
+    .btn-primary,.btn-secondary{will-change:transform;transition:transform .4s cubic-bezier(.19,1,.22,1),box-shadow .2s,border-color .2s,background .2s,color .2s}
+
+    /* --- Tilt cards --- */
+    .proj-card{transform-style:flat;backface-visibility:hidden}
+
+    /* --- Section label animated underline --- */
+    .section-label{position:relative;overflow:visible}
+
+    /* --- Skill tag hover glow --- */
+    .stag.c:hover,.stag.v:hover{transform:scale(1.06);box-shadow:0 0 10px currentColor}
+    .stag{transition:transform .2s,box-shadow .2s}
+
+    /* --- Timeline dot pulse on hover --- */
+    .tl-item:hover .tl-dot{transform:scale(1.5);transition:transform .3s}
+    .tl-dot{transition:transform .3s}
+
+    /* --- Contact cards lift --- */
+    .ccard{transition:all .25s cubic-bezier(.4,0,.2,1)}
+    .ccard:hover{transform:translateY(-5px);box-shadow:0 16px 35px rgba(0,0,0,.4)}
+
+    /* --- Pill interactive --- */
+    .pill{transition:all .2s cubic-bezier(.4,0,.2,1)}
+
   </style>
 </head>
 <body>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
 <div id="scroll-bar"></div>
 
@@ -1211,6 +1285,112 @@ const cObs = new IntersectionObserver(entries=>{
   });
 },{threshold:0.6});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+
+// ══════════════════════════════════════════
+//  INTERACTIVE EFFECTS
+// ══════════════════════════════════════════
+
+const isTouch = window.matchMedia('(pointer:coarse)').matches;
+
+// ── Custom cursor (desktop only) ──
+if(!isTouch){
+  const cDot = document.getElementById('cursor-dot');
+  const cRing = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    cDot.style.left=mx+'px'; cDot.style.top=my+'px';
+    document.body.classList.add('cursor-on');
+  });
+  document.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-on'));
+
+  (function animRing(){
+    rx+=(mx-rx)*.11; ry+=(my-ry)*.11;
+    cRing.style.left=Math.round(rx*10)/10+'px';
+    cRing.style.top=Math.round(ry*10)/10+'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  const growTargets='a,button,.pill,.proj-card,.skill-card,.cert-item,.ccard,.edu-card,.feat-card,.about-ring img';
+  document.querySelectorAll(growTargets).forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'));
+  });
+}
+
+// ── Card spotlight — tracks cursor inside each card ──
+document.querySelectorAll('.skill-card,.proj-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--cx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    card.style.setProperty('--cy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  });
+});
+
+// ── 3D tilt on project cards ──
+if(!isTouch){
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transition='transform .08s ease';
+      card.style.transform=`perspective(700px) rotateY(${x*7}deg) rotateX(${-y*5}deg) translateY(-7px)`;
+    });
+    card.addEventListener('mouseleave',()=>{
+      card.style.transition='transform .55s cubic-bezier(.19,1,.22,1),border-color .3s,box-shadow .3s';
+      card.style.transform='';
+    });
+  });
+}
+
+// ── Magnetic CTA buttons ──
+if(!isTouch){
+  document.querySelectorAll('.btn-primary,.btn-secondary').forEach(btn=>{
+    btn.addEventListener('mouseenter',()=>{
+      btn.style.transition='transform .08s ease';
+    });
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.32;
+      const y=(e.clientY-r.top-r.height/2)*.32;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{
+      btn.style.transition='transform .5s cubic-bezier(.19,1,.22,1),box-shadow .2s,border-color .2s,background .2s,color .2s';
+      btn.style.transform='';
+    });
+  });
+}
+
+// ── Hero parallax on mouse move ──
+if(!isTouch){
+  const heroSec=document.getElementById('hero');
+  let heroVisible=true;
+  const heroIO=new IntersectionObserver(e=>{heroVisible=e[0].isIntersecting;},{threshold:.05});
+  heroIO.observe(heroSec);
+
+  document.addEventListener('mousemove',e=>{
+    if(!heroVisible) return;
+    const cx=(e.clientX/innerWidth-.5)*2;
+    const cy=(e.clientY/innerHeight-.5)*2;
+    const heroName=heroSec.querySelector('.hero-name');
+    const heroBadge=heroSec.querySelector('.hero-badge');
+    const heroRoles=heroSec.querySelector('.hero-roles');
+    const heroDesc=heroSec.querySelector('.hero-desc');
+    const heroAct=heroSec.querySelector('.hero-actions');
+    const orb1=heroSec.querySelector('.orb-1');
+    const orb2=heroSec.querySelector('.orb-2');
+    if(heroName) heroName.style.transform=`translate(${cx*-9}px,${cy*-5}px)`;
+    if(heroBadge) heroBadge.style.transform=`translate(${cx*-6}px,${cy*-3.5}px)`;
+    if(heroRoles) heroRoles.style.transform=`translate(${cx*-5}px,${cy*-3}px)`;
+    if(heroDesc) heroDesc.style.transform=`translate(${cx*-3}px,${cy*-2}px)`;
+    if(heroAct) heroAct.style.transform=`translate(${cx*-2}px,${cy*-1.5}px)`;
+    if(orb1) orb1.style.transform=`translate(${cx*18}px,${cy*12}px)`;
+    if(orb2) orb2.style.transform=`translate(${cx*-14}px,${cy*-9}px)`;
+  });
+}
 </script>
 </body>
 </html>
