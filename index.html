@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nour Chaabani — AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    :root {
+      --bg:#030712; --surface:#0F172A; --surface-2:#1E293B;
+      --cyan:#06B6D4; --cyan-dim:rgba(6,182,212,.12);
+      --violet:#8B5CF6; --violet-dim:rgba(139,92,246,.12);
+      --emerald:#10B981; --amber:#F59E0B;
+      --text:#F1F5F9; --text-2:#94A3B8; --text-3:#475569;
+      --border:rgba(148,163,184,.08); --border-2:rgba(148,163,184,.18);
+      --radius:16px; --radius-sm:8px;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden; }
+    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--text-3);border-radius:3px}
+    h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;line-height:1.2}
+    .gradient-text{background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+    .section-label::before{content:'';width:2rem;height:1px;background:var(--cyan);flex-shrink:0}
+    .section-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:.75rem}
+    .section-subtitle{color:var(--text-2);font-size:1.05rem;max-width:580px}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    section{padding:6rem 0;scroll-margin-top:72px}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+    /* SCROLL PROGRESS */
+    #scroll-bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));z-index:500;transition:width .08s linear;pointer-events:none}
+
+    /* NAV */
+    nav{position:fixed;inset:0 0 auto;z-index:200;padding:1.4rem 2rem;transition:all .3s}
+    nav.scrolled{background:rgba(3,7,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 2rem}
+    .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}
+    .nav-links a{color:var(--text-2);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s}
+    .nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-cta{background:linear-gradient(135deg,var(--cyan),var(--violet)) !important;color:white !important;padding:.55rem 1.4rem;border-radius:50px;font-weight:600 !important}
+    .nav-cta::after{display:none !important}
+    .nav-cta:hover,.nav-cta.active{color:white !important}
+    /* nav right controls */
+    .nav-right{display:flex;align-items:center;gap:.65rem;flex-shrink:0}
+    .lang-btn{background:transparent;border:1px solid var(--border-2);border-radius:50px;padding:.3rem .85rem;font-size:.75rem;font-family:'JetBrains Mono',monospace;color:var(--text-2);cursor:pointer;transition:all .2s;letter-spacing:.06em;font-weight:500}
+    .lang-btn:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+    /* hamburger */
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;width:34px;height:34px;flex-shrink:0}
+    .hamburger span{display:block;width:20px;height:2px;background:var(--text-2);border-radius:2px;transition:all .28s cubic-bezier(.4,0,.2,1);transform-origin:center}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--cyan)}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--cyan)}
+    /* mobile nav */
+    .mobile-nav{position:fixed;inset:0;z-index:190;background:rgba(3,7,18,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;transform:translateY(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+    .mobile-nav.open{transform:translateY(0);pointer-events:all}
+    .mobile-nav a{color:var(--text-2);text-decoration:none;font-size:1.6rem;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:color .2s}
+    .mobile-nav a:hover{color:var(--cyan)}
+    .mobile-nav .lang-btn{font-size:.9rem;padding:.5rem 1.5rem;margin-top:1rem}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0}
+    .hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .orb{position:absolute;border-radius:50%;filter:blur(110px);animation:drift 10s ease-in-out infinite}
+    .orb-1{width:700px;height:700px;background:radial-gradient(circle,rgba(6,182,212,.1) 0%,transparent 70%);top:-20%;left:-15%}
+    .orb-2{width:550px;height:550px;background:radial-gradient(circle,rgba(139,92,246,.09) 0%,transparent 70%);top:10%;right:-10%;animation-delay:-4s}
+    .orb-3{width:400px;height:400px;background:radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 70%);bottom:5%;left:35%;animation-delay:-7s}
+    @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-25px) scale(1.04)}66%{transform:translate(-18px,18px) scale(.96)}}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(148,163,184,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.025) 1px,transparent 1px);background-size:64px 64px}
+    .hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem;padding-top:6rem}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid var(--border-2);border-radius:50px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--cyan);background:var(--cyan-dim);margin-bottom:2rem;animation:fadeUp .7s ease both}
+    .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--emerald);animation:pulse 2s ease infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero-name{font-size:clamp(3.5rem,9vw,7.5rem);font-weight:700;letter-spacing:-.025em;line-height:1;margin-bottom:1.5rem;animation:fadeUp .7s ease .15s both}
+    .hero-roles{font-size:clamp(1.1rem,2.5vw,1.55rem);color:var(--text-2);font-weight:300;margin-bottom:1.75rem;height:2.2rem;animation:fadeUp .7s ease .3s both}
+    #typewriter{border-right:2px solid var(--cyan);padding-right:3px;animation:blink .75s step-end infinite}
+    @keyframes blink{0%,100%{border-color:var(--cyan)}50%{border-color:transparent}}
+    .hero-desc{font-size:1.05rem;color:var(--text-2);max-width:580px;line-height:1.85;margin-bottom:2.75rem;animation:fadeUp .7s ease .45s both}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s ease .6s both}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:linear-gradient(135deg,var(--cyan),var(--violet));color:white;text-decoration:none;border-radius:50px;font-weight:600;font-size:.95rem;transition:transform .2s,box-shadow .2s}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(6,182,212,.28)}
+    .btn-secondary{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:transparent;color:var(--text);text-decoration:none;border-radius:50px;font-weight:500;font-size:.95rem;border:1px solid var(--border-2);transition:all .2s}
+    .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+    .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-3);font-size:.7rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;animation:fadeUp 1s ease .9s both}
+    .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--cyan));animation:scrollAnim 2s ease infinite}
+    @keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+    /* STATS */
+    .stats-strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.75rem 0}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    .stat-item{text-align:center;padding:1rem 2rem;border-right:1px solid var(--border)}
+    .stat-item:last-child{border-right:none}
+    .stat-number{font-family:'Space Grotesk',sans-serif;font-size:2.75rem;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;margin-bottom:.5rem}
+    .stat-label{color:var(--text-2);font-size:.85rem}
+
+    /* ABOUT */
+    #about{background:var(--bg)}
+    .about-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:center}
+    .about-ring{position:relative;max-width:370px;margin:0 auto}
+    .about-ring::before{content:'';position:absolute;inset:-3px;border-radius:24px;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--emerald));z-index:0}
+    .about-ring::after{content:'';position:absolute;inset:-25px;border-radius:32px;background:linear-gradient(135deg,var(--cyan),var(--violet));opacity:.1;filter:blur(35px);z-index:-1}
+    .about-ring img{width:100%;border-radius:22px;display:block;position:relative;z-index:1;object-fit:cover;aspect-ratio:3/4}
+    .about-text h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:1.5rem}
+    .about-text p{color:var(--text-2);margin-bottom:1.25rem;line-height:1.85}
+    .about-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.75rem}
+    .pill{padding:.4rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:50px;font-size:.83rem;color:var(--text-2);transition:all .2s;cursor:default}
+    .pill:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+
+    /* SKILLS */
+    #skills{background:var(--surface)}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+    .skill-card{background:rgba(3,7,18,.55);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;backdrop-filter:blur(12px);transition:border-color .3s,transform .3s}
+    .skill-card:hover{border-color:var(--border-2);transform:translateY(-4px)}
+    .skill-card-icon{font-size:1.6rem;margin-bottom:1rem}
+    .skill-card h4{font-size:.95rem;font-weight:600;margin-bottom:1rem}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    .stag{padding:.22rem .7rem;border-radius:50px;font-size:.77rem;font-family:'JetBrains Mono',monospace;background:var(--surface-2);border:1px solid var(--border);color:var(--text-2)}
+    .stag.c{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+    .stag.v{border-color:var(--violet);color:var(--violet);background:var(--violet-dim)}
+
+    /* GALLERY */
+    [data-gallery]{position:relative;overflow:hidden;background:#050B1A}
+    .gal-img{width:100%;height:100%;object-fit:contain;transition:opacity .18s ease;display:block;background:#050B1A}
+    .gal-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:34px;height:34px;border-radius:50%;background:rgba(3,7,18,.8);border:1px solid rgba(255,255,255,.15);color:white;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s;opacity:0;backdrop-filter:blur(8px)}
+    [data-gallery]:hover .gal-btn{opacity:1}
+    .gal-prev{left:.65rem} .gal-next{right:.65rem}
+    .gal-btn:hover{background:rgba(6,182,212,.3);border-color:var(--cyan)}
+    .gal-dots{position:absolute;bottom:.65rem;left:50%;transform:translateX(-50%);display:flex;gap:.3rem;z-index:10}
+    .gal-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .25s}
+    .gal-dot.active{background:var(--cyan);width:20px;border-radius:3px}
+
+    /* PROJECTS */
+    #projects{background:var(--bg)}
+    .projects-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+
+    /* Featured */
+    .feat-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;margin-bottom:1.5rem;transition:border-color .3s}
+    .feat-card:hover{border-color:var(--border-2)}
+    .feat-images{height:480px;flex-shrink:0}
+    .feat-body{padding:2.5rem 2.5rem 2.5rem 1.5rem;display:flex;flex-direction:column;justify-content:center}
+    .feat-company{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem}
+    .feat-title{font-size:1.75rem;font-weight:700;margin-bottom:1rem;line-height:1.25}
+    .feat-desc{color:var(--text-2);font-size:.92rem;line-height:1.8;margin-bottom:1.25rem}
+    .feat-metrics{display:flex;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .feat-metric-val{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .feat-metric-lbl{font-size:.72rem;color:var(--text-3)}
+    .tech-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem}
+    .ttag{padding:.22rem .7rem;background:var(--surface-2);border:1px solid var(--border);border-radius:4px;font-size:.76rem;color:var(--text-2);font-family:'JetBrains Mono',monospace}
+
+    /* Read More button */
+    .read-more-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem 1.1rem;background:transparent;border:1px solid var(--border-2);border-radius:50px;font-size:.82rem;color:var(--cyan);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;font-weight:500}
+    .read-more-btn:hover{background:var(--cyan-dim);border-color:var(--cyan)}
+
+    /* Grid cards */
+    .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .proj-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s,box-shadow .3s}
+    .proj-card:hover{border-color:var(--border-2);transform:translateY(-7px);box-shadow:0 25px 50px rgba(0,0,0,.45)}
+    .proj-img-wrap{aspect-ratio:16/9;height:auto;min-height:180px;max-height:300px;position:relative;overflow:hidden}
+    .proj-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.65),transparent 50%);z-index:3;pointer-events:none}
+    .proj-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+    .ph-cyan{background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(139,92,246,.08))}
+    .ph-emerald{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.08))}
+    .proj-badge{position:absolute;top:.75rem;right:.75rem;padding:.28rem .72rem;border-radius:50px;font-size:.68rem;font-weight:700;z-index:5}
+    .b-award{background:linear-gradient(135deg,#F59E0B,#EF4444);color:white}
+    .b-ml{background:var(--cyan-dim);border:1px solid var(--cyan);color:var(--cyan)}
+    .b-ai{background:var(--violet-dim);border:1px solid var(--violet);color:var(--violet)}
+    .b-cv{background:rgba(16,185,129,.1);border:1px solid var(--emerald);color:var(--emerald)}
+    .proj-body{padding:1.4rem;flex:1;display:flex;flex-direction:column}
+    .proj-company{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.4rem}
+    .proj-title{font-size:1.05rem;font-weight:600;margin-bottom:.65rem;line-height:1.35}
+    .proj-desc{color:var(--text-2);font-size:.84rem;line-height:1.7;flex:1;margin-bottom:.9rem}
+    .proj-tech{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.9rem}
+    .proj-tech span{padding:.18rem .55rem;background:var(--surface-2);border-radius:4px;font-size:.7rem;color:var(--text-3);font-family:'JetBrains Mono',monospace}
+    .proj-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.9rem;border-top:1px solid var(--border);gap:.75rem}
+    .proj-stat{display:flex;align-items:center;gap:.45rem;font-size:.78rem;font-weight:500;color:var(--emerald)}
+
+    /* EXPERIENCE */
+    #experience{background:var(--surface)}
+    .timeline{position:relative;margin-top:3rem;padding-left:1.5rem}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cyan),var(--violet),transparent)}
+    .tl-item{padding-left:2.5rem;padding-bottom:3rem;position:relative}
+    .tl-item:last-child{padding-bottom:0}
+    .tl-dot{position:absolute;left:-6px;top:4px;width:13px;height:13px;border-radius:50%;border:2px solid var(--bg)}
+    .tl-dot.c{background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+    .tl-dot.v{background:var(--violet);box-shadow:0 0 14px var(--violet)}
+    .tl-dot.e{background:var(--emerald);box-shadow:0 0 12px var(--emerald)}
+    .tl-dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+    .tl-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem;gap:1rem;flex-wrap:wrap}
+    .tl-role{font-size:1.05rem;font-weight:600}
+    .tl-period{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--text-3);padding:.28rem .75rem;background:var(--surface-2);border-radius:50px;white-space:nowrap}
+    .tl-company{color:var(--cyan);font-weight:500;font-size:.88rem;margin-bottom:.7rem}
+    .tl-points{list-style:none}
+    .tl-points li{color:var(--text-2);font-size:.88rem;padding-left:1rem;position:relative;margin-bottom:.4rem;line-height:1.65}
+    .tl-points li::before{content:'';position:absolute;left:0;top:.65rem;width:4px;height:4px;border-radius:50%;background:var(--text-3)}
+    .tl-award{display:inline-flex;align-items:center;gap:.4rem;margin-top:.75rem;padding:.32rem .9rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:50px;font-size:.78rem;color:var(--amber);font-weight:600}
+
+    /* EDUCATION */
+    #education{background:var(--bg)}
+    .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+    .edu-col h3{font-size:1.05rem;color:var(--text-2);font-weight:600;margin-bottom:1.25rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+    .edu-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;margin-bottom:.9rem;transition:border-color .3s}
+    .edu-card:hover{border-color:var(--border-2)}
+    .edu-card-title{font-weight:600;font-size:.95rem;margin-bottom:.25rem}
+    .edu-card-sub{color:var(--text-2);font-size:.83rem;margin-bottom:.4rem;line-height:1.5}
+    .edu-card-period{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:var(--text-3)}
+    .cert-item{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:var(--radius-sm);margin-bottom:.7rem;transition:all .25s}
+    .cert-item:hover{border-left-color:var(--violet);transform:translateX(4px)}
+    .cert-item:nth-child(even){border-left-color:var(--violet)}
+    .cert-icon{font-size:1.25rem;flex-shrink:0}
+    .cert-name{font-weight:500;font-size:.88rem;margin-bottom:.2rem}
+    .cert-by{font-size:.75rem;color:var(--text-3);font-family:'JetBrains Mono',monospace}
+    .distinction-item{display:flex;align-items:center;gap:1.1rem;padding:1.1rem 1.25rem;background:linear-gradient(135deg,rgba(245,158,11,.05),rgba(239,68,68,.04));border:1px solid rgba(245,158,11,.18);border-radius:var(--radius);margin-bottom:.9rem;transition:border-color .3s}
+    .distinction-item:hover{border-color:rgba(245,158,11,.35)}
+    .di-icon{font-size:1.5rem}
+    .di-title{font-weight:600;font-size:.93rem;margin-bottom:.2rem}
+    .di-sub{color:var(--text-2);font-size:.8rem}
+    .lang-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+    .lang-name{font-weight:600;font-size:.9rem}
+    .lang-level{font-size:.78rem;color:var(--text-3);margin-top:.15rem}
+
+    /* CONTACT */
+    #contact{background:var(--surface);text-align:center;position:relative;overflow:hidden}
+    .contact-orb{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .contact-inner{position:relative;z-index:1}
+    .contact-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem}
+    .contact-sub{color:var(--text-2);font-size:1.05rem;max-width:480px;margin:0 auto 2.5rem}
+    .contact-cards{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+    .ccard{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 1.75rem;border-radius:var(--radius);font-size:.92rem;font-weight:500;text-decoration:none;background:var(--bg);border:1px solid var(--border);color:var(--text);transition:all .2s}
+    .ccard:hover{border-color:var(--cyan);transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.35)}
+    .ccard i{color:var(--cyan)}
+    .ccard:nth-child(2) i{color:var(--emerald)}
+    .ccard:nth-child(3) i{color:#0A66C2}
+    .divider{width:80px;height:1px;background:var(--border-2);margin:0 auto 2rem}
+    .availability{display:inline-flex;align-items:center;gap:.6rem;color:var(--emerald);font-size:.9rem;font-weight:500}
+    .avail-dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);animation:pulse 2s ease infinite}
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 0;text-align:center}
+    footer p{color:var(--text-3);font-size:.82rem}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(3,7,18,.92);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--surface);border:1px solid var(--border-2);border-radius:24px;max-width:860px;width:100%;max-height:88vh;overflow-y:auto;position:relative;display:flex;flex-direction:column}
+    .modal::-webkit-scrollbar{width:4px}
+    .modal::-webkit-scrollbar-thumb{background:var(--text-3);border-radius:2px}
+    .modal-gal-wrap{height:320px;border-radius:24px 24px 0 0;overflow:hidden;flex-shrink:0}
+    .modal-header{padding:1.75rem 2rem 1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+    .modal-close{background:none;border:1px solid var(--border-2);border-radius:50%;width:36px;height:36px;color:var(--text-2);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+    .modal-close:hover{background:var(--surface-2);color:var(--text);border-color:var(--text-2)}
+    .modal-company{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.4rem}
+    .modal-title{font-size:1.5rem;font-weight:700}
+    .modal-body{padding:0 2rem 2rem}
+    .modal-body h3{font-size:1rem;font-weight:600;color:var(--cyan);margin:1.5rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+    .modal-body p{color:var(--text-2);font-size:.9rem;line-height:1.8;margin-bottom:.75rem}
+    .modal-body ul{list-style:none;margin-bottom:.75rem}
+    .modal-body ul li{color:var(--text-2);font-size:.88rem;line-height:1.7;padding-left:1rem;position:relative;margin-bottom:.35rem}
+    .modal-body ul li::before{content:'';position:absolute;left:0;top:.65rem;width:4px;height:4px;border-radius:50%;background:var(--cyan)}
+    .modal-tech{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border)}
+    .modal-tech span{padding:.25rem .75rem;background:var(--surface-2);border:1px solid var(--border);border-radius:4px;font-size:.78rem;color:var(--text-2);font-family:'JetBrains Mono',monospace}
+
+    @media (max-width:1024px){
+      .about-grid{grid-template-columns:1fr;gap:3rem}
+      .about-ring{max-width:300px}
+      .feat-card{grid-template-columns:1fr}
+      .feat-images{min-height:280px}
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+      .proj-grid{grid-template-columns:repeat(2,1fr)}
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:768px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      /* sections */
+      section{padding:3.5rem 0}
+      /* hero */
+      .hero-name{font-size:clamp(2.8rem,11vw,4.5rem)}
+      .hero-desc{font-size:.95rem}
+      .hero-actions{gap:.75rem}
+      .btn-primary,.btn-secondary{padding:.75rem 1.5rem;font-size:.88rem}
+      /* stats 2x2 */
+      .stats-grid{grid-template-columns:repeat(2,1fr)}
+      .stat-item{border-right:none;border-bottom:1px solid var(--border);padding:.9rem 1rem}
+      .stat-item:nth-child(odd){border-right:1px solid var(--border)}
+      .stat-item:nth-child(3),.stat-item:nth-child(4){border-bottom:none}
+      .stat-number{font-size:2.2rem}
+      /* about */
+      .about-grid{grid-template-columns:1fr;gap:2rem}
+      .about-ring{max-width:240px}
+      /* skills */
+      .skills-grid{grid-template-columns:1fr}
+      /* projects */
+      .projects-top{flex-direction:column;gap:1rem}
+      .feat-card{grid-template-columns:1fr}
+      .feat-images{height:260px !important}
+      .feat-body{padding:1.5rem}
+      .feat-title{font-size:1.35rem}
+      .feat-metrics{gap:1.2rem}
+      .feat-metric-val{font-size:1.15rem}
+      .proj-grid{grid-template-columns:1fr}
+      .proj-img-wrap{aspect-ratio:16/9;max-height:none}
+      /* experience */
+      .tl-head{flex-direction:column;gap:.3rem}
+      /* education */
+      .edu-grid{grid-template-columns:1fr}
+      /* contact */
+      .contact-cards{flex-direction:column;align-items:stretch}
+      .ccard{justify-content:center}
+      /* modal */
+      .modal-gal-wrap{height:220px}
+      .modal{border-radius:16px}
+      .modal-header{padding:1.2rem 1.2rem .75rem}
+      .modal-body{padding:0 1.2rem 1.5rem}
+    }
+    @media (max-width:480px){
+      .container{padding:0 1rem}
+      .hero-name{font-size:clamp(2.4rem,12vw,3.5rem)}
+      .hero-badge{font-size:.7rem}
+      .feat-metrics{gap:1rem}
+      .feat-metric-val{font-size:1rem}
+      .stat-number{font-size:1.9rem}
+      .section-title{font-size:1.8rem}
+      .tl-period{font-size:.68rem}
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-bar"></div>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#about" onclick="closeMobileNav()" data-i18n="nav.about">About</a>
+  <a href="#skills" onclick="closeMobileNav()" data-i18n="nav.skills">Skills</a>
+  <a href="#projects" onclick="closeMobileNav()" data-i18n="nav.projects">Projects</a>
+  <a href="#experience" onclick="closeMobileNav()" data-i18n="nav.experience">Experience</a>
+  <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
+  <button class="lang-btn" onclick="toggleLang();closeMobileNav()" id="lang-btn-mobile">FR</button>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">NC.</a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="lang-btn" onclick="toggleLang()" id="lang-btn">FR</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span><span data-i18n="hero.badge">Open to full-time opportunities</span></div>
+    <h1 class="hero-name"><span class="gradient-text">Nour</span><br>Chaabani</h1>
+    <div class="hero-roles"><span id="typewriter"></span></div>
+    <p class="hero-desc">Final-year Data Science Engineer at ESPRIT, specializing in production-ready AI systems from LLM fine-tuning and RAG pipelines to MLOps and full-stack deployment. I ship AI that works in the real world.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary"><i class="fas fa-rocket"></i> <span data-i18n="hero.cta1">View Projects</span></a>
+      <a href="final_update_cv.pdf" download class="btn-secondary"><i class="fas fa-download"></i> <span data-i18n="hero.cta2">Download CV</span></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><span class="stat-number" data-count="5" data-suffix="+">0</span><span class="stat-label" data-i18n="stats.internships">Internships</span></div>
+      <div class="stat-item reveal d1"><span class="stat-number" data-count="12" data-suffix="+">0</span><span class="stat-label" data-i18n="stats.projects">AI Projects</span></div>
+      <div class="stat-item reveal d2"><span class="stat-number" data-count="2" data-suffix="">0</span><span class="stat-label" data-i18n="stats.certs">NVIDIA Certifications</span></div>
+      <div class="stat-item reveal d3"><span class="stat-number" data-count="1" data-suffix="">0</span><span class="stat-label" data-i18n="stats.award">Best Project Award</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-ring">
+          <img data-img="profile" alt="Nour Chaabani" />
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="section-label" data-i18n="about.label">About Me</div>
+        <h2 data-i18n-html="about.title.html">AI Engineer building <span class="gradient-text">production-grade</span> intelligence</h2>
+        <p data-i18n="about.p1">Final-year Software Engineering student at ESPRIT, specializing in Data Science and AI Engineering. I architect end-to-end AI systems that handle real data, real users, and real business constraints.</p>
+        <p data-i18n-html="about.p2.html">My work spans LLMs and RAG architectures, MLOps pipelines, computer vision, and multi-agent systems. I've deployed microservices handling <strong>10,000+ daily requests</strong>, built credit scoring platforms on real bank loan data fully compliant with IFRS 9 and Basel III, and engineered multi-agent systems that run autonomously in production.</p>
+        <div class="about-pills">
+          <span class="pill" data-i18n="about.pill.llm">🧠 LLM Engineering</span>
+          <span class="pill" data-i18n="about.pill.mlops">🔧 MLOps</span>
+          <span class="pill" data-i18n="about.pill.ds">📊 Data Science</span>
+          <span class="pill" data-i18n="about.pill.cv">👁️ Computer Vision</span>
+          <span class="pill" data-i18n="about.pill.ma">🤖 Multi-Agent AI</span>
+          <span class="pill" data-i18n="about.pill.cloud">☁️ Cloud and DevOps</span>
+          <span class="pill" data-i18n="about.pill.fin">🏦 FinTech AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal"><div class="section-label" data-i18n="skills.label">Technical Stack</div><h2 class="section-title" data-i18n="skills.title">Skills and Technologies</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card reveal d1"><div class="skill-card-icon">🧠</div><h4 data-i18n="skill.ai">AI / Machine Learning</h4><div class="skill-tags"><span class="stag c">PyTorch</span><span class="stag c">TensorFlow</span><span class="stag">Scikit-learn</span><span class="stag">HuggingFace</span><span class="stag">XGBoost</span><span class="stag">OpenCV</span></div></div>
+      <div class="skill-card reveal d2"><div class="skill-card-icon">💬</div><h4 data-i18n="skill.llm">LLM and RAG Systems</h4><div class="skill-tags"><span class="stag v">LangChain</span><span class="stag v">AutoGen</span><span class="stag v">RAG</span><span class="stag v">ChromaDB</span><span class="stag">Groq / Llama</span><span class="stag">SHAP + LIME</span></div></div>
+      <div class="skill-card reveal d3"><div class="skill-card-icon">⚡</div><h4 data-i18n="skill.backend">Backend and APIs</h4><div class="skill-tags"><span class="stag c">FastAPI</span><span class="stag">Django</span><span class="stag">Node.js</span><span class="stag">Python</span><span class="stag">Symfony</span><span class="stag">REST APIs</span></div></div>
+      <div class="skill-card reveal d1"><div class="skill-card-icon">☁️</div><h4 data-i18n="skill.cloud">Cloud and DevOps</h4><div class="skill-tags"><span class="stag c">Docker</span><span class="stag">Kubernetes</span><span class="stag">AWS</span><span class="stag">Azure AI</span><span class="stag">CI/CD</span><span class="stag">GitHub Actions</span></div></div>
+      <div class="skill-card reveal d2"><div class="skill-card-icon">🗄️</div><h4 data-i18n="skill.data">Data and Databases</h4><div class="skill-tags"><span class="stag">PostgreSQL</span><span class="stag">MongoDB</span><span class="stag">MySQL</span><span class="stag">ChromaDB</span><span class="stag">FAISS</span><span class="stag">Neo4j</span></div></div>
+      <div class="skill-card reveal d3"><div class="skill-card-icon">🌐</div><h4 data-i18n="skill.frontend">Frontend</h4><div class="skill-tags"><span class="stag c">React</span><span class="stag">JavaScript</span><span class="stag">HTML + CSS</span><span class="stag">PHP</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="projects-top reveal">
+      <div><div class="section-label" data-i18n="projects.label">Portfolio</div><h2 class="section-title" data-i18n="projects.title">Featured Projects</h2></div>
+      <p class="section-subtitle" data-i18n="projects.subtitle">My 7 best from 12+ AI projects — production-grade systems built on real data, deployed at scale.</p>
+    </div>
+
+    <!-- FEATURED: AMEN BANK -->
+    <div class="feat-card reveal">
+      <div class="feat-images" data-gallery="amenBank">
+        <img class="gal-img" alt="Amen Bank Credit Risk Platform" />
+        <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+        <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+        <div class="gal-dots"></div>
+      </div>
+      <div class="feat-body">
+        <div class="feat-company">Amen Bank &nbsp; Feb to Jun 2026</div>
+        <h3 class="feat-title">AI Credit Risk <span class="gradient-text">Scoring Platform</span></h3>
+        <p class="feat-desc" data-i18n="feat.desc.amen">Architected a production-ready credit scoring platform on real Amen Bank loan data (React, Node.js, FastAPI, PostgreSQL), containerized with Docker Compose and shipped via GitHub Actions CI/CD. Trained an EasyEnsembleClassifier on 22,000+ imbalanced records with WoE/IV feature selection, automating PD/LGD/EAD decisions compliant with IFRS 9 and Basel III. Built an NLP pipeline powering a RAG chatbot (Llama 3.3-70B) with role-aware multilingual credit explanations via SHAP and prompt engineering.</p>
+        <div class="feat-metrics">
+          <div><div class="feat-metric-val">22K+</div><div class="feat-metric-lbl" data-i18n="feat.metric.records">Real loan records</div></div>
+          <div><div class="feat-metric-val">0.43</div><div class="feat-metric-lbl" data-i18n="feat.metric.gini">Gini coefficient</div></div>
+          <div><div class="feat-metric-val">99.9%</div><div class="feat-metric-lbl" data-i18n="feat.metric.avail">Availability</div></div>
+        </div>
+        <div class="tech-tags">
+          <span class="ttag">React 19</span><span class="ttag">FastAPI</span><span class="ttag">PostgreSQL</span>
+          <span class="ttag">LangChain</span><span class="ttag">ChromaDB</span><span class="ttag">Llama 3.3-70B</span>
+          <span class="ttag">Docker</span><span class="ttag">SHAP</span><span class="ttag">EasyEnsemble</span>
+        </div>
+        <button class="read-more-btn" onclick="openModal('amenBank')"><i class="fas fa-expand-alt"></i> <span data-i18n="btn.readmore">Read more</span></button>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="proj-grid">
+
+      <!-- VigilantX -->
+      <div class="proj-card reveal d1">
+        <div class="proj-img-wrap" data-gallery="vigilantx">
+          <img class="gal-img" alt="VigilantX" />
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-award">🏆 Best Project 2025</span>
+          <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+          <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+          <div class="gal-dots"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">Value / Jan to Jun 2025</div>
+          <h3 class="proj-title">VigilantX — AI Due Diligence Platform</h3>
+          <p class="proj-desc" data-i18n="proj.desc.vx">Developed a Django-based application integrating advanced semantic segmentation, a RAG architecture, and automated fact-checking mechanisms. Designed intelligent PPTX reports automatically generated using LLMs, connected to real-time financial APIs. Deployed scalable microservices capable of handling 10,000+ daily requests with 99.9% availability.</p>
+          <div class="proj-tech"><span>Django</span><span>RAG</span><span>LLM</span><span>FastAPI</span><span>Microservices</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-trophy"></i> <span data-i18n="proj.stat.vx">Best Project ESPRIT 2025</span></div>
+            <button class="read-more-btn" onclick="openModal('vigilantx')"><i class="fas fa-expand-alt"></i> <span data-i18n="btn.more">More</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agentic AI -->
+      <div class="proj-card reveal d2">
+        <div class="proj-img-wrap" data-gallery="agentic">
+          <img class="gal-img" alt="Agentic Economic Intelligence" />
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-ai">Multi-Agent</span>
+          <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+          <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+          <div class="gal-dots"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">Value / Jun to Aug 2025</div>
+          <h3 class="proj-title">Agentic Economic Intelligence Platform</h3>
+          <p class="proj-desc" data-i18n="proj.desc.ag">Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision making and task coordination across Microsoft Azure services. Integrated Azure AI services with Power Automate to orchestrate intelligent pipelines.</p>
+          <div class="proj-tech"><span>Mistral</span><span>LangChain</span><span>AutoGen</span><span>FAISS</span><span>FastAPI</span><span>Docker</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-robot"></i> <span data-i18n="proj.stat.ag">Self-updating knowledge base</span></div>
+            <button class="read-more-btn" onclick="openModal('agentic')"><i class="fas fa-expand-alt"></i> <span data-i18n="btn.more">More</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fraud Detection -->
+      <div class="proj-card reveal d3">
+        <div class="proj-img-wrap" data-gallery="fraud">
+          <img class="gal-img" alt="Fraud Detection Pipeline" />
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-ml">MLOps</span>
+          <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+          <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+          <div class="gal-dots"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">1-Week Mini Project</div>
+          <h3 class="proj-title">Real-Time Fraud Detection Pipeline</h3>
+          <p class="proj-desc" data-i18n="proj.desc.fr">Designed a production-ready fraud detection pipeline with real-time threshold tuning, KPI monitoring, and dockerized deployment, achieving 93% fraud recall on real-world data.</p>
+          <div class="proj-tech"><span>Python</span><span>XGBoost</span><span>Ensemble</span><span>Docker</span><span>Streamlit</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-shield-alt"></i> <span data-i18n="proj.stat.fr">93% fraud recall</span></div>
+            <button class="read-more-btn" onclick="openModal('fraud')"><i class="fas fa-expand-alt"></i> <span data-i18n="btn.more">More</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV Ranking -->
+      <div class="proj-card reveal d1">
+        <div class="proj-img-wrap" data-gallery="cvRanking">
+          <img class="gal-img" alt="AI CV Ranking System" />
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-ai">NLP + XAI</span>
+          <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+          <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+          <div class="gal-dots"></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">AI Recruitment Project</div>
+          <h3 class="proj-title">AI CV Ranking System</h3>
+          <p class="proj-desc" data-i18n="proj.desc.cv">Built an end-to-end CV ranking pipeline using Python, HuggingFace MiniLM, ChromaDB, Groq LLM, SHAP, and LIME. Implemented semantic search, LLM-based evaluation, hybrid scoring, and XAI explanations to rank 3K+ resumes with high accuracy.</p>
+          <div class="proj-tech"><span>HuggingFace</span><span>FAISS</span><span>Neo4j</span><span>LangGraph</span><span>Groq</span><span>SHAP</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-file-alt"></i> <span data-i18n="proj.stat.cv">92% F1-score / 3K+ resumes</span></div>
+            <button class="read-more-btn" onclick="openModal('cvRanking')"><i class="fas fa-expand-alt"></i> <span data-i18n="btn.more">More</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brain Tumor -->
+      <div class="proj-card reveal d2">
+        <div class="proj-img-wrap">
+          <div class="proj-placeholder ph-emerald">🧬</div>
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-cv">Computer Vision</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">Notable Project</div>
+          <h3 class="proj-title">Brain Tumor Detection Platform</h3>
+          <p class="proj-desc" data-i18n="proj.desc.br">Trained CNNs and transfer learning models (DenseNet121, VGG16) to detect tumors in MRI scans, achieving 94% accuracy and 30% faster training.</p>
+          <div class="proj-tech"><span>TensorFlow</span><span>DenseNet121</span><span>VGG16</span><span>OpenCV</span><span>Python</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-brain"></i> <span data-i18n="proj.stat.br">94% accuracy on MRI scans</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Churn Prediction -->
+      <div class="proj-card reveal d3">
+        <div class="proj-img-wrap">
+          <div class="proj-placeholder ph-cyan">📈</div>
+          <div class="proj-img-overlay"></div>
+          <span class="proj-badge b-ml">MLOps</span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-company">Notable Project</div>
+          <h3 class="proj-title">Churn Prediction with MLOps</h3>
+          <p class="proj-desc" data-i18n="proj.desc.ch">Identified customers at risk of churn using XGBoost (87% F1-score) and business indicators, automated with MLOps for retraining and monitoring. Reduced update time by 60% via CI/CD.</p>
+          <div class="proj-tech"><span>XGBoost</span><span>MLOps</span><span>CI/CD</span><span>Python</span><span>Docker</span></div>
+          <div class="proj-footer">
+            <div class="proj-stat"><i class="fas fa-chart-line"></i> <span data-i18n="proj.stat.ch">87% F1-score / 60% faster updates</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal"><div class="section-label" data-i18n="exp.label">Career</div><h2 class="section-title" data-i18n="exp.title">Experience</h2></div>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-dot c"></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.amen.role">AI Credit Risk Engineer</div><span class="tl-period">Feb to Jun 2026</span></div>
+        <div class="tl-company">Amen Bank</div>
+        <ul class="tl-points">
+          <li data-i18n="exp.amen.li1">Architected a production-ready credit scoring platform on real loan data (React, FastAPI, PostgreSQL), containerized with Docker and shipped via GitHub Actions CI/CD</li>
+          <li data-i18n="exp.amen.li2">Trained EasyEnsembleClassifier on 22,000+ imbalanced records (12:1 ratio) with WoE/IV feature selection and Platt scaling, automating PD/LGD/EAD decisions compliant with IFRS 9 and Basel III</li>
+          <li data-i18n="exp.amen.li3">Built an NLP pipeline (LangChain, ChromaDB, nomic-embed-text) powering a RAG chatbot (Llama 3.3-70B) with SHAP-based multilingual credit explanations</li>
+          <li data-i18n="exp.amen.li4">Delivered PSI drift monitoring, batch inference on 25,000+ applications, and portfolio analytics secured with JWT, RBAC, rate limiting, and full audit logging</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot v"></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.v2.role">AI Engineer Intern</div><span class="tl-period">Jun to Aug 2025</span></div>
+        <div class="tl-company">Value</div>
+        <ul class="tl-points">
+          <li data-i18n="exp.v2.li1">Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision-making across Microsoft Azure services</li>
+          <li data-i18n="exp.v2.li2">Integrated Azure AI services with Power Automate to orchestrate intelligent pipelines, reducing manual intervention across automated business workflows</li>
+          <li data-i18n="exp.v2.li3">Designed and exposed REST APIs enabling seamless inter-agent communication, optimized for scalability under production load</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot v"></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.v1.role">AI Engineer Intern</div><span class="tl-period">Jan to Jun 2025</span></div>
+        <div class="tl-company">Value</div>
+        <ul class="tl-points">
+          <li data-i18n="exp.v1.li1">Developed a Django application integrating semantic segmentation, RAG architecture, and automated fact-checking mechanisms</li>
+          <li data-i18n="exp.v1.li2">Designed intelligent PPTX reports auto-generated by LLMs, connected to real-time financial APIs</li>
+          <li data-i18n="exp.v1.li3">Deployed scalable microservices handling 10,000+ daily requests with 99.9% availability</li>
+        </ul>
+        <span class="tl-award" data-i18n="exp.v1.award">🏆 Best Project of the Year — ESPRIT 2025, selected among 200+ competing projects</span>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot e"></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.oss.role">Software Engineer Intern</div><span class="tl-period">Jun to Aug 2024</span></div>
+        <div class="tl-company">Sahara and Sahel Observatory</div>
+        <ul class="tl-points">
+          <li data-i18n="exp.oss.li1">Built a responsive Symfony web application for the OSS conference, enhancing staff management, event logistics, and overall user experience</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot a"></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.eo.role">Intern, Networking and Systems</div><span class="tl-period">Jun to Jul 2022</span></div>
+        <div class="tl-company">EO Data Center</div>
+        <ul class="tl-points">
+          <li data-i18n="exp.eo.li1">Hands-on experience with Cisco technologies including routers, switches, and network protocols administration</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="reveal"><div class="section-label" data-i18n="edu.label">Background</div><h2 class="section-title" data-i18n="edu.title">Education and Certifications</h2></div>
+    <div class="edu-grid">
+      <div>
+        <h3 data-i18n="edu.section">Education</h3>
+        <div class="edu-card reveal">
+          <div class="edu-card-title" data-i18n="edu.deg.title">Engineering Degree in Computer Science</div>
+          <div class="edu-card-sub" data-i18n="edu.deg.sub">ESPRIT, Specialization: Data Science</div>
+          <div class="edu-card-period" data-i18n="edu.deg.period">2021 to 2026 (Expected)</div>
+        </div>
+        <div class="edu-card reveal d1">
+          <div class="edu-card-title" data-i18n="edu.eng.title">Advanced English Program</div>
+          <div class="edu-card-sub">Wall Street English</div>
+          <div class="edu-card-period">2021 to 2023</div>
+        </div>
+        <div class="edu-card reveal d2">
+          <div class="edu-card-title" data-i18n="edu.bac.title">Baccalaureate in Mathematics</div>
+          <div class="edu-card-sub" data-i18n="edu.bac.sub">ESPRIT High School</div>
+          <div class="edu-card-period">2017 to 2021</div>
+        </div>
+        <h3 style="margin-top:2.25rem" data-i18n="edu.distinctions">Distinctions</h3>
+        <div class="distinction-item reveal">
+          <span class="di-icon">🏆</span>
+          <div><div class="di-title" data-i18n="edu.d1.title">Best Project of the Year</div><div class="di-sub" data-i18n="edu.d1.sub">ESPRIT Project Gala 12th Edition (2024 to 2025) / Selected among 200+ projects</div></div>
+        </div>
+        <div class="distinction-item reveal d1">
+          <span class="di-icon">🎖️</span>
+          <div><div class="di-title" data-i18n="edu.d2.title">ESPRIT Project Gala 9th Edition</div><div class="di-sub" data-i18n="edu.d2.sub">2020 to 2021</div></div>
+        </div>
+      </div>
+      <div>
+        <h3 data-i18n="edu.certs">Certifications</h3>
+        <div class="cert-item reveal"><span class="cert-icon">🟢</span><div><div class="cert-name">Building Transformer-Based NLP Applications</div><div class="cert-by">NVIDIA Deep Learning Institute / 2025</div></div></div>
+        <div class="cert-item reveal d1"><span class="cert-icon">🟢</span><div><div class="cert-name">Evaluation and Light Customization of LLMs</div><div class="cert-by">NVIDIA Deep Learning Institute / 2025</div></div></div>
+        <div class="cert-item reveal d2"><span class="cert-icon">🔷</span><div><div class="cert-name">Hashgraph Developer</div><div class="cert-by">Hedera / 2025</div></div></div>
+        <div class="cert-item reveal d3"><span class="cert-icon">🟠</span><div><div class="cert-name">AWS Academy Cloud Foundations</div><div class="cert-by">Amazon Web Services</div></div></div>
+        <h3 style="margin-top:2.25rem" data-i18n="edu.languages">Languages</h3>
+        <div class="edu-card reveal">
+          <div class="lang-row">
+            <div><div class="lang-name" data-i18n="lang.ar">Arabic</div><div class="lang-level" data-i18n="lang.ar.lvl">Native</div></div>
+            <div><div class="lang-name" data-i18n="lang.fr">French</div><div class="lang-level" data-i18n="lang.fr.lvl">B2 Professional</div></div>
+            <div><div class="lang-name" data-i18n="lang.en">English</div><div class="lang-level" data-i18n="lang.en.lvl">B2 Professional</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-orb"></div>
+  <div class="container contact-inner">
+    <div class="reveal">
+      <div class="section-label" style="justify-content:center" data-i18n="contact.label">Get In Touch</div>
+      <h2 class="contact-title" data-i18n-html="contact.title.html">Let's build something <span class="gradient-text">remarkable</span></h2>
+      <p class="contact-sub" data-i18n="contact.sub">Seeking full-time AI Engineer roles. If you're building something ambitious, let's talk.</p>
+    </div>
+    <div class="contact-cards reveal d1">
+      <a href="mailto:nour.chaabani@esprit.tn" class="ccard"><i class="fas fa-envelope"></i> nour.chaabani@esprit.tn</a>
+      <a href="tel:+21623138590" class="ccard"><i class="fas fa-phone"></i> +216 23 138 590</a>
+      <a href="https://linkedin.com/in/nour-chaabani-188b66244" class="ccard" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
+    <div class="divider"></div>
+    <div class="availability reveal d2"><span class="avail-dot"></span><span data-i18n="contact.avail">Available for full-time positions / Tunis, Tunisia / Open to relocation</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container"><p>&#169; 2026 Nour Chaabani / Built with precision</p></div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-gal-wrap" data-gallery="modal-active">
+      <img class="gal-img" id="modal-gal-img" alt="" />
+      <button class="gal-btn gal-prev" onclick="galNav(this,-1)">&#10094;</button>
+      <button class="gal-btn gal-next" onclick="galNav(this,1)">&#10095;</button>
+      <div class="gal-dots" id="modal-gal-dots"></div>
+    </div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-company" id="modal-company"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ── Profile image ──
+(function(){
+  const paths = ["my_image.png","./my_image.png","../my_image.png"];
+  const img = document.querySelector('[data-img="profile"]');
+  let i=0;
+  function tryNext(){ if(i<paths.length){ img.src=paths[i++]; } }
+  img.onerror = tryNext;
+  tryNext();
+})();
+
+// ── Galleries (numbered filenames in order) ──
+const GALLERIES = {
+  amenBank:  Array.from({length:16},(_,i)=>`amen_bank_project/${i+1}.png`),
+  vigilantx: Array.from({length:10},(_,i)=>`project_value1/${i+1}.png`),
+  agentic:   Array.from({length:4}, (_,i)=>`project_value2/${i+1}.jpg`),
+  fraud:     Array.from({length:4}, (_,i)=>`fraud_detection_project/${i+1}.jpg`),
+  cvRanking: Array.from({length:4}, (_,i)=>`project_rh/${i+1}.png`)
+};
+
+const galState = {};
+
+function goToFrame(key, container, idx) {
+  const imgs = GALLERIES[key]; if(!imgs) return;
+  galState[key] = ((idx%imgs.length)+imgs.length)%imgs.length;
+  const imgEl = container.querySelector('.gal-img');
+  if(imgEl){ imgEl.style.opacity='0'; setTimeout(()=>{ imgEl.src=imgs[galState[key]]; imgEl.style.opacity='1'; },140); }
+  container.querySelectorAll('.gal-dot').forEach((d,i)=>d.classList.toggle('active',i===galState[key]));
+}
+
+function galNav(btn,dir){
+  const c=btn.closest('[data-gallery]');
+  const k=c.dataset.gallery;
+  goToFrame(k,c,(galState[k]||0)+dir);
+}
+
+document.querySelectorAll('[data-gallery]').forEach(el=>{
+  const key=el.dataset.gallery;
+  const imgs=GALLERIES[key]; if(!imgs) return;
+  galState[key]=0;
+  const imgEl=el.querySelector('.gal-img');
+  if(imgEl) imgEl.src=imgs[0];
+  const dotsEl=el.querySelector('.gal-dots');
+  if(dotsEl){ imgs.forEach((_,i)=>{ const d=document.createElement('span'); d.className='gal-dot'+(i===0?' active':''); d.addEventListener('click',()=>goToFrame(key,el,i)); dotsEl.appendChild(d); }); }
+  if(imgs.length>1) setInterval(()=>goToFrame(key,el,(galState[key]||0)+1),4200);
+});
+
+// ── Modal content ──
+const MODAL_DATA = {
+  amenBank: {
+    company: "Amen Bank / Feb to Jun 2026",
+    title: "AI Credit Risk Scoring Platform",
+    tech: ["React 19","Node.js","FastAPI","PostgreSQL","Docker","GitHub Actions","LangChain","ChromaDB","Llama 3.3-70B","SHAP","EasyEnsemble","Platt Scaling","IFRS 9","Basel III"],
+    html: `
+      <h3>What is it?</h3>
+      <p>A production-ready intelligent credit risk platform built for Amen Bank, one of Tunisia's leading banks. The system automates loan application evaluation using machine learning, replacing slow, manual credit analysis with instant, explainable, and regulatory-compliant risk decisions. It serves three types of users: clients who want to know their credit score, bank analysts who need detailed risk profiles, and admins who monitor the entire portfolio.</p>
+      <h3>Machine Learning Pipeline</h3>
+      <p>Trained on 22,000+ real Amen Bank loan records with a 12:1 class imbalance. Used Weight of Evidence (WoE) and Information Value (IV) for feature selection, reducing 18 features down to 11 most predictive ones. EasyEnsembleClassifier with Platt scaling calibration converts raw outputs into realistic probability percentages. Result: Gini coefficient of 0.43, exceeding the 0.40 regulatory threshold.</p>
+      <h3>IFRS 9 Risk Classification</h3>
+      <ul>
+        <li>Stage 1 (PD under 5%): Approved</li>
+        <li>Stage 2 (PD 5 to 9%): Conditional</li>
+        <li>Stage 3 (PD 9% or above): Rejected</li>
+      </ul>
+      <h3>RAG Chatbot Pipeline</h3>
+      <p>Full Retrieval Augmented Generation pipeline from scratch. PyMuPDF extracts text from 7 regulatory PDFs (IFRS 9, Basel III, BCT circulars). LangChain chunks documents into 7,602 semantically coherent pieces stored in ChromaDB. Groq Llama 3.3-70B generates natural language answers grounded in retrieved context. The chatbot adapts responses by user role: simple empathetic explanations for clients, technical regulatory language for analysts, and governance insights for admins.</p>
+      <h3>Platform Features</h3>
+      <ul>
+        <li>Real-time scoring under 500ms with SHAP explanation charts</li>
+        <li>Batch inference on up to 25,000 applications with PDF and Excel export</li>
+        <li>What-If simulator: adjust salary, debt ratio, and loan amount with sliders and see PD change in real time</li>
+        <li>Client comparison with side-by-side radar charts</li>
+        <li>Portfolio analytics with approval rates, branch distribution, and stage breakdown</li>
+        <li>PSI drift monitoring to detect model degradation over time</li>
+        <li>JWT authentication, RBAC with 3 roles, rate limiting, and full audit trail</li>
+      </ul>
+    `
+  },
+  vigilantx: {
+    company: "Value / Jan to Jun 2025",
+    title: "VigilantX — AI Due Diligence Platform",
+    tech: ["Django","RAG","FastAPI","LangChain","Microservices","Docker","PPTX Generation","SEC Scraping","LLM","NLP"],
+    html: `
+      <h3>What is it?</h3>
+      <p>An AI-powered due diligence platform built for the next generation of crypto investors, auditors, analysts, and compliance teams. In an era of misinformation and fragmented data, VigilantX delivers trust, intelligence, and speed to fund due diligence.</p>
+      <h3>Key Capabilities</h3>
+      <ul>
+        <li>Automated document analysis: extracts, cleans, and processes files in seconds</li>
+        <li>Context-aware Q and A: ask professional questions, get audit-grade answers</li>
+        <li>Red flag detection: surfaces hidden compliance risks and missing disclosures</li>
+        <li>Risk scoring engine: quantifies risk from legal, financial, and governance signals</li>
+        <li>Instant PPTX reports: one-click, investor-ready slides</li>
+        <li>Live web and SEC scraping for real-time data enrichment</li>
+        <li>Faithfulness guarantee: evidence-based responses with no hallucinations</li>
+        <li>Human-in-the-Loop oversight for full reliability</li>
+        <li>60-day crypto market forecasting covering 50+ major tokens</li>
+        <li>1,200+ expert-crafted questions across legal, compliance, operational, and strategic dimensions</li>
+        <li>Efficient Frontier portfolio builder to maximize returns with optimal risk</li>
+        <li>Buy and Sell strategy recommender based on data context</li>
+        <li>Voice-powered Q and A for hands-free analysis</li>
+        <li>LLM-powered web crawlers synthesizing filings, articles, and disclosures automatically</li>
+      </ul>
+      <h3>Production Scale</h3>
+      <p>Deployed as scalable microservices capable of handling 10,000+ daily requests with 99.9% availability. Selected as Best Project of the Year at ESPRIT 2025 among more than 200 competing projects.</p>
+    `
+  },
+  agentic: {
+    company: "Value / Jun to Aug 2025",
+    title: "Agentic Economic Intelligence Platform",
+    tech: ["Mistral","LangChain","AutoGen","FAISS","Serper","FastAPI","Docker","Flaresolver","Playwright","Azure AI","Power Automate"],
+    html: `
+      <h3>What is it?</h3>
+      <p>An Agentic AI platform combining retrieval augmented generation, intelligent search, and interactive dashboards to deliver real-time economic insights. Built over two months, the platform integrates Azure AI services for autonomous business workflow orchestration.</p>
+      <h3>Chatbot with RAG and Reasoning</h3>
+      <p>Powered by Mistral as the core model, connected to a FAISS vector database of economic indicators. If the answer exists locally, FAISS retrieves it instantly. If not, the agent uses Serper for targeted search, then a Dockerized scraper (Flaresolver and Playwright) fetches and parses fresh data. The system continuously updates FAISS, enabling reasoned, up-to-date answers.</p>
+      <h3>Interactive Dashboard</h3>
+      <ul>
+        <li>Market Analytics module with indicator selection, time range filtering, and visualization options</li>
+        <li>Economic Indicator Trends with dynamic charts such as inflation over time</li>
+        <li>Economic Intelligence summary cards showing total indicators, categories, banking KPIs, and latest data year</li>
+      </ul>
+      <h3>Azure Integration</h3>
+      <p>Azure AI services integrated with Power Automate to orchestrate intelligent pipelines, reducing manual intervention across automated business workflows. REST APIs designed for seamless inter-agent communication and optimized for scalability under production load.</p>
+    `
+  },
+  fraud: {
+    company: "1-Week Mini Project",
+    title: "Real-Time Fraud Detection Pipeline",
+    tech: ["Python","XGBoost","Stacking Ensemble","Streamlit","Docker","Scikit-learn","Pandas","MLflow"],
+    html: `
+      <h3>What is it?</h3>
+      <p>An end-to-end fraud detection system built from scratch in one week, from raw imbalanced transaction data to fully containerized production deployment. Inspired by real-world financial fraud patterns.</p>
+      <h3>Technical Approach</h3>
+      <ul>
+        <li>Tackled highly imbalanced datasets where fraud cases are rare but costly</li>
+        <li>Hybrid stacking ensemble model with custom threshold tuning to maximize fraud recall</li>
+        <li>Streamlit dashboard with interactive threshold slider: adjusting the cutoff shows instant precision and recall changes</li>
+        <li>KPI cards showing accuracy, recall, precision, and AUC at a glance</li>
+        <li>Fraud case explorer and real-time monitoring interface</li>
+        <li>Full Docker deployment: runs anywhere, fully production-ready</li>
+        <li>Reproducible ML pipeline from ingestion through preprocessing, modeling, and monitoring</li>
+      </ul>
+      <h3>Results</h3>
+      <ul>
+        <li>Accuracy: 99.8%</li>
+        <li>Fraud Recall: 93%</li>
+        <li>Fraud Precision: 42%</li>
+        <li>PR AUC: 0.88</li>
+      </ul>
+    `
+  },
+  cvRanking: {
+    company: "AI Recruitment Project",
+    title: "AI CV Ranking System",
+    tech: ["HuggingFace","sentence-transformers","FAISS","Neo4j","LangGraph","LangChain","LLaMA 3.1-8B","Groq","SHAP","LIME","Python"],
+    html: `
+      <h3>What is it?</h3>
+      <p>An intelligent AI recruitment assistant that matches candidates to job descriptions using semantic understanding, graph-based reasoning, and LLM explainability. The system ranks thousands of resumes with precision and explains every decision.</p>
+      <h3>How it Works</h3>
+      <ul>
+        <li>Input a job description</li>
+        <li>Fine-tuned model predicts the most relevant role category</li>
+        <li>FAISS retrieves semantically similar resumes (Recall@5: 0.86, MRR: 0.80)</li>
+        <li>Neo4j knowledge graph identifies overlapping skills and relationships between candidates and roles</li>
+        <li>LLaMA 3.1-8B via Ollama explains why each candidate fits the role</li>
+      </ul>
+      <h3>Technical Stack</h3>
+      <ul>
+        <li>Fine-tuned sentence-transformers MiniLM on 24 job categories: 92% F1-score and 81% test accuracy</li>
+        <li>FAISS vector database for semantic similarity retrieval</li>
+        <li>Neo4j knowledge graph: candidates, skills, and roles connected for explainable reasoning</li>
+        <li>LangGraph and LangChain orchestration combining semantic retrieval, symbolic reasoning, and natural language explanation</li>
+        <li>SHAP explainability layer on top of LLM-generated explanations</li>
+      </ul>
+    `
+  }
+};
+
+function openModal(projectKey) {
+  const data = MODAL_DATA[projectKey]; if(!data) return;
+  document.getElementById('modal-company').textContent = data.company;
+  document.getElementById('modal-title').textContent = data.title;
+  document.getElementById('modal-body').innerHTML = data.html + `<div class="modal-tech">${data.tech.map(t=>`<span>${t}</span>`).join('')}</div>`;
+
+  // Set up modal gallery
+  const imgs = GALLERIES[projectKey];
+  const modalKey = 'modal-' + projectKey;
+  GALLERIES[modalKey] = imgs || [];
+  galState[modalKey] = 0;
+
+  const modalGal = document.querySelector('.modal-gal-wrap');
+  modalGal.dataset.gallery = modalKey;
+  const imgEl = document.getElementById('modal-gal-img');
+  const dotsEl = document.getElementById('modal-gal-dots');
+  dotsEl.innerHTML = '';
+
+  if(imgs && imgs.length > 0) {
+    imgEl.src = imgs[0];
+    modalGal.style.display = '';
+    imgs.forEach((_,i)=>{
+      const d = document.createElement('span');
+      d.className='gal-dot'+(i===0?' active':'');
+      d.addEventListener('click',()=>goToFrame(modalKey,modalGal,i));
+      dotsEl.appendChild(d);
+    });
+  } else {
+    modalGal.style.display = 'none';
+  }
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// ── Scroll progress bar ──
+const scrollBar = document.getElementById('scroll-bar');
+function updateScrollBar(){
+  const pct = scrollY / (document.documentElement.scrollHeight - innerHeight) * 100;
+  scrollBar.style.width = Math.min(pct,100) + '%';
+}
+
+// ── Navbar scroll + scroll progress ──
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('scrolled', scrollY > 50);
+  updateScrollBar();
+});
+
+// ── Smooth scroll (fixes "View Projects" + accounts for fixed nav) ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if(!id || id==='#') return;
+    const target = document.querySelector(id);
+    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+// ── Active nav highlight ──
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const sections = document.querySelectorAll('section[id]');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+e.target.id));
+    }
+  });
+},{threshold:0.35});
+sections.forEach(s=>navObs.observe(s));
+
+// ── Hamburger / mobile nav ──
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+function toggleMobileNav(){
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileNav(){
+  hamburger.classList.remove('open');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+mobileNav.addEventListener('click', e=>{ if(e.target===mobileNav) closeMobileNav(); });
+
+// ── EN / FR translations ──
+const I18N = {
+  en: {
+    'nav.about':'About','nav.skills':'Skills','nav.projects':'Projects','nav.experience':'Experience','nav.contact':'Contact',
+    'hero.badge':'Open to full-time opportunities',
+    'hero.desc':'Final-year Data Science Engineer at ESPRIT, specializing in production-ready AI systems from LLM fine-tuning and RAG pipelines to MLOps and full-stack deployment. I ship AI that works in the real world.',
+    'hero.cta1':'View Projects','hero.cta2':'Download CV','hero.scroll':'scroll',
+    'stats.internships':'Internships','stats.projects':'AI Projects','stats.certs':'NVIDIA Certifications','stats.award':'Best Project Award',
+    'about.label':'About Me','about.p1':'Final-year Software Engineering student at ESPRIT, specializing in Data Science and AI Engineering. I architect end-to-end AI systems that handle real data, real users, and real business constraints.',
+    'about.p2.html':'My work spans LLMs and RAG architectures, MLOps pipelines, computer vision, and multi-agent systems. I\'ve deployed microservices handling <strong>10,000+ daily requests</strong>, built credit scoring platforms on real bank loan data fully compliant with IFRS 9 and Basel III, and engineered multi-agent systems that run autonomously in production.',
+    'about.title.html':'AI Engineer building <span class="gradient-text">production-grade</span> intelligence',
+    'about.pill.llm':'🧠 LLM Engineering','about.pill.mlops':'🔧 MLOps','about.pill.ds':'📊 Data Science','about.pill.cv':'👁️ Computer Vision','about.pill.ma':'🤖 Multi-Agent AI','about.pill.cloud':'☁️ Cloud and DevOps','about.pill.fin':'🏦 FinTech AI',
+    'skills.label':'Technical Stack','skills.title':'Skills and Technologies',
+    'skill.ai':'AI / Machine Learning','skill.llm':'LLM and RAG Systems','skill.backend':'Backend and APIs','skill.cloud':'Cloud and DevOps','skill.data':'Data and Databases','skill.frontend':'Frontend',
+    'projects.label':'Portfolio','projects.title':'Featured Projects','projects.subtitle':'My 7 best from 12+ AI projects — production-grade systems built on real data, deployed at scale.',
+    'feat.desc.amen':'Architected a production-ready credit scoring platform on real Amen Bank loan data (React, Node.js, FastAPI, PostgreSQL), containerized with Docker Compose and shipped via GitHub Actions CI/CD. Trained an EasyEnsembleClassifier on 22,000+ imbalanced records with WoE/IV feature selection, automating PD/LGD/EAD decisions compliant with IFRS 9 and Basel III. Built an NLP pipeline powering a RAG chatbot (Llama 3.3-70B) with role-aware multilingual credit explanations via SHAP and prompt engineering.',
+    'feat.metric.records':'Real loan records','feat.metric.gini':'Gini coefficient','feat.metric.avail':'Availability',
+    'btn.readmore':'Read more','btn.more':'More',
+    'proj.desc.vx':'Developed a Django-based application integrating advanced semantic segmentation, a RAG architecture, and automated fact-checking mechanisms. Designed intelligent PPTX reports automatically generated using LLMs, connected to real-time financial APIs. Deployed scalable microservices capable of handling 10,000+ daily requests with 99.9% availability.',
+    'proj.desc.ag':'Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision making and task coordination across Microsoft Azure services. Integrated Azure AI services with Power Automate to orchestrate intelligent pipelines.',
+    'proj.desc.fr':'Designed a production-ready fraud detection pipeline with real-time threshold tuning, KPI monitoring, and dockerized deployment, achieving 93% fraud recall on real-world data.',
+    'proj.desc.cv':'Built an end-to-end CV ranking pipeline using Python, HuggingFace MiniLM, ChromaDB, Groq LLM, SHAP, and LIME. Implemented semantic search, LLM-based evaluation, hybrid scoring, and XAI explanations to rank 3K+ resumes with high accuracy.',
+    'proj.desc.br':'Trained CNNs and transfer learning models (DenseNet121, VGG16) to detect tumors in MRI scans, achieving 94% accuracy and 30% faster training.',
+    'proj.desc.ch':'Identified customers at risk of churn using XGBoost (87% F1-score) and business indicators, automated with MLOps for retraining and monitoring. Reduced update time by 60% via CI/CD.',
+    'proj.stat.vx':'Best Project ESPRIT 2025','proj.stat.ag':'Self-updating knowledge base','proj.stat.fr':'93% fraud recall','proj.stat.cv':'92% F1-score / 3K+ resumes','proj.stat.br':'94% accuracy on MRI scans','proj.stat.ch':'87% F1-score / 60% faster updates',
+    'exp.label':'Career','exp.title':'Experience',
+    'exp.amen.role':'AI Credit Risk Engineer',
+    'exp.amen.li1':'Architected a production-ready credit scoring platform on real loan data (React, FastAPI, PostgreSQL), containerized with Docker and shipped via GitHub Actions CI/CD',
+    'exp.amen.li2':'Trained EasyEnsembleClassifier on 22,000+ imbalanced records (12:1 ratio) with WoE/IV feature selection and Platt scaling, automating PD/LGD/EAD decisions compliant with IFRS 9 and Basel III',
+    'exp.amen.li3':'Built an NLP pipeline (LangChain, ChromaDB, nomic-embed-text) powering a RAG chatbot (Llama 3.3-70B) with SHAP-based multilingual credit explanations',
+    'exp.amen.li4':'Delivered PSI drift monitoring, batch inference on 25,000+ applications, and portfolio analytics secured with JWT, RBAC, rate limiting, and full audit logging',
+    'exp.v2.role':'AI Engineer Intern',
+    'exp.v2.li1':'Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision-making across Microsoft Azure services',
+    'exp.v2.li2':'Integrated Azure AI services with Power Automate to orchestrate intelligent pipelines, reducing manual intervention across automated business workflows',
+    'exp.v2.li3':'Designed and exposed REST APIs enabling seamless inter-agent communication, optimized for scalability under production load',
+    'exp.v1.role':'AI Engineer Intern',
+    'exp.v1.li1':'Developed a Django application integrating semantic segmentation, RAG architecture, and automated fact-checking mechanisms',
+    'exp.v1.li2':'Designed intelligent PPTX reports auto-generated by LLMs, connected to real-time financial APIs',
+    'exp.v1.li3':'Deployed scalable microservices handling 10,000+ daily requests with 99.9% availability',
+    'exp.v1.award':'🏆 Best Project of the Year — ESPRIT 2025, selected among 200+ competing projects',
+    'exp.oss.role':'Software Engineer Intern',
+    'exp.oss.li1':'Built a responsive Symfony web application for the OSS conference, enhancing staff management, event logistics, and overall user experience',
+    'exp.eo.role':'Intern, Networking and Systems',
+    'exp.eo.li1':'Hands-on experience with Cisco technologies including routers, switches, and network protocols administration',
+    'edu.label':'Background','edu.title':'Education and Certifications','edu.section':'Education','edu.distinctions':'Distinctions','edu.certs':'Certifications','edu.languages':'Languages',
+    'edu.deg.title':'Engineering Degree in Computer Science','edu.deg.sub':'ESPRIT, Specialization: Data Science','edu.deg.period':'2021 to 2026 (Expected)',
+    'edu.eng.title':'Advanced English Program','edu.bac.title':'Baccalaureate in Mathematics','edu.bac.sub':'ESPRIT High School',
+    'edu.d1.title':'Best Project of the Year','edu.d1.sub':'ESPRIT Project Gala 12th Edition (2024 to 2025) / Selected among 200+ projects',
+    'edu.d2.title':'ESPRIT Project Gala 9th Edition','edu.d2.sub':'2020 to 2021',
+    'lang.ar':'Arabic','lang.ar.lvl':'Native','lang.fr':'French','lang.fr.lvl':'B2 Professional','lang.en':'English','lang.en.lvl':'B2 Professional',
+    'contact.label':'Get In Touch','contact.title.html':'Let\'s build something <span class="gradient-text">remarkable</span>',
+    'contact.sub':'Seeking full-time AI Engineer roles. If you\'re building something ambitious, let\'s talk.',
+    'contact.avail':'Available for full-time positions / Tunis, Tunisia / Open to relocation',
+    'footer.text':'© 2026 Nour Chaabani / Built with precision'
+  },
+  fr: {
+    'nav.about':'À propos','nav.skills':'Compétences','nav.projects':'Projets','nav.experience':'Expérience','nav.contact':'Contact',
+    'hero.badge':'Disponible pour des postes à temps plein',
+    'hero.desc':'Étudiante en dernière année à l\'ESPRIT, spécialisée en Data Science et IA Engineering. Je conçois des systèmes IA bout-en-bout : fine-tuning LLM, pipelines RAG, MLOps et déploiement full-stack.',
+    'hero.cta1':'Voir les projets','hero.cta2':'Télécharger le CV','hero.scroll':'défiler',
+    'stats.internships':'Stages','stats.projects':'Projets IA','stats.certs':'Certifications NVIDIA','stats.award':'Prix Meilleur Projet',
+    'about.label':'À propos','about.p1':'Étudiante en dernière année à l\'ESPRIT, spécialisée en Data Science et IA Engineering. Je conçois des systèmes IA de bout en bout sur des données réelles, pour de vrais utilisateurs.',
+    'about.p2.html':'Mon travail couvre les LLM et architectures RAG, les pipelines MLOps, la vision par ordinateur et les systèmes multi-agents. J\'ai déployé des microservices traitant <strong>10 000+ requêtes/jour</strong>, construit des plateformes de scoring crédit conformes IFRS 9 et Bâle III, et conçu des systèmes multi-agents fonctionnant de manière autonome en production.',
+    'about.title.html':'Ingénieure IA concevant une intelligence <span class="gradient-text">de haut niveau</span>',
+    'about.pill.llm':'🧠 LLM Engineering','about.pill.mlops':'🔧 MLOps','about.pill.ds':'📊 Data Science','about.pill.cv':'👁️ Vision par Ordinateur','about.pill.ma':'🤖 IA Multi-Agents','about.pill.cloud':'☁️ Cloud et DevOps','about.pill.fin':'🏦 IA FinTech',
+    'skills.label':'Stack Technique','skills.title':'Compétences et Technologies',
+    'skill.ai':'IA / Machine Learning','skill.llm':'LLMs et Systèmes RAG','skill.backend':'Backend et APIs','skill.cloud':'Cloud et DevOps','skill.data':'Données et Bases de données','skill.frontend':'Frontend',
+    'projects.label':'Portfolio','projects.title':'Projets Phares','projects.subtitle':'Mes 7 meilleurs parmi 12+ projets IA — systèmes de niveau production sur données réelles, déployés à grande échelle.',
+    'feat.desc.amen':'Plateforme de scoring crédit en production sur données réelles Amen Bank (React, FastAPI, PostgreSQL), conteneurisée avec Docker. EasyEnsembleClassifier sur 22 000+ dossiers déséquilibrés avec WoE/IV, automatisant les décisions PD/LGD/EAD conformes IFRS 9 et Bâle III. Pipeline NLP avec chatbot RAG multilingue (Llama 3.3-70B) et explications SHAP.',
+    'feat.metric.records':'Dossiers de prêts réels','feat.metric.gini':'Coefficient de Gini','feat.metric.avail':'Disponibilité',
+    'btn.readmore':'En savoir plus','btn.more':'Plus',
+    'proj.desc.vx':'Application Django intégrant segmentation sémantique avancée, architecture RAG et vérification automatique des faits. Rapports PPTX intelligents générés par LLM, connectés à des APIs financières en temps réel. Microservices scalables gérant 10 000+ requêtes/jour avec 99,9% de disponibilité.',
+    'proj.desc.ag':'Système IA Agentique (LangChain, AutoGen, FastAPI) avec workflows multi-agents autonomes pour la prise de décision sur les services Microsoft Azure. Intégration Azure AI avec Power Automate pour orchestrer des pipelines intelligents.',
+    'proj.desc.fr':'Pipeline de détection de fraude en production avec ajustement de seuil en temps réel, monitoring KPI et déploiement Docker, atteignant 93% de rappel fraude sur données réelles.',
+    'proj.desc.cv':'Pipeline de classement de CV bout-en-bout : HuggingFace MiniLM, ChromaDB, Groq LLM, SHAP et LIME. Recherche sémantique, évaluation LLM, scoring hybride et explications XAI pour classer 3 000+ CV.',
+    'proj.desc.br':'Entraînement de CNN et modèles transfer learning (DenseNet121, VGG16) pour détecter des tumeurs sur IRM, avec 94% de précision et 30% d\'accélération.',
+    'proj.desc.ch':'Identification des clients à risque de churn avec XGBoost (87% F1-score) et indicateurs métier, automatisé avec MLOps. Réduction du temps de mise à jour de 60% via CI/CD.',
+    'proj.stat.vx':'Meilleur Projet ESPRIT 2025','proj.stat.ag':'Base de connaissances auto-mise à jour','proj.stat.fr':'93% rappel fraude','proj.stat.cv':'92% F1-score / 3K+ CV','proj.stat.br':'94% précision sur IRM','proj.stat.ch':'87% F1-score / 60% plus rapide',
+    'exp.label':'Carrière','exp.title':'Expérience',
+    'exp.amen.role':'Ingénieure IA en Risque Crédit',
+    'exp.amen.li1':'Conçu une plateforme de scoring crédit en production sur données réelles (React, FastAPI, PostgreSQL), conteneurisée avec Docker et déployée via GitHub Actions CI/CD',
+    'exp.amen.li2':'Entraîné un EasyEnsembleClassifier sur 22 000+ dossiers déséquilibrés (ratio 12:1) avec WoE/IV et calibration Platt, automatisant les décisions PD/LGD/EAD conformes IFRS 9 et Bâle III',
+    'exp.amen.li3':'Construit un pipeline NLP (LangChain, ChromaDB) alimentant un chatbot RAG (Llama 3.3-70B) avec explications crédit multilingues basées sur SHAP',
+    'exp.amen.li4':'Livré un monitoring PSI, inférence par lots sur 25 000+ dossiers et analytics sécurisés avec JWT, RBAC, rate limiting et audit complet',
+    'exp.v2.role':'Ingénieure IA en Stage',
+    'exp.v2.li1':'Conçu un système IA Agentique (LangChain, AutoGen, FastAPI) avec workflows multi-agents autonomes pour la prise de décision sur les services Microsoft Azure',
+    'exp.v2.li2':'Intégré les services Azure AI avec Power Automate pour orchestrer des pipelines intelligents, réduisant les interventions manuelles',
+    'exp.v2.li3':'Conçu et exposé des APIs REST pour une communication inter-agents fluide, optimisées pour la scalabilité en production',
+    'exp.v1.role':'Ingénieure IA en Stage',
+    'exp.v1.li1':'Développé une application Django intégrant segmentation sémantique avancée, architecture RAG et vérification automatique des faits',
+    'exp.v1.li2':'Conçu des rapports PPTX intelligents générés automatiquement par LLM, connectés à des APIs financières en temps réel',
+    'exp.v1.li3':'Déployé des microservices scalables gérant 10 000+ requêtes/jour avec 99,9% de disponibilité',
+    'exp.v1.award':'🏆 Meilleur Projet de l\'Année — ESPRIT 2025, sélectionné parmi 200+ projets en compétition',
+    'exp.oss.role':'Ingénieure Logiciel en Stage',
+    'exp.oss.li1':'Développé une application web Symfony responsive pour la conférence OSS, améliorant la gestion du personnel et l\'expérience utilisateur',
+    'exp.eo.role':'Stagiaire Réseaux et Systèmes',
+    'exp.eo.li1':'Expérience pratique avec les technologies Cisco : administration de routeurs, commutateurs et protocoles réseau',
+    'edu.label':'Formation','edu.title':'Formation et Certifications','edu.section':'Études','edu.distinctions':'Distinctions','edu.certs':'Certifications','edu.languages':'Langues',
+    'edu.deg.title':'Diplôme d\'ingénieur en Informatique','edu.deg.sub':'ESPRIT, Spécialisation : Data Science','edu.deg.period':'2021 à 2026 (Prévu)',
+    'edu.eng.title':'Programme d\'Anglais Avancé','edu.bac.title':'Baccalauréat en Mathématiques','edu.bac.sub':'Lycée ESPRIT',
+    'edu.d1.title':'Meilleur Projet de l\'Année','edu.d1.sub':'Gala des Projets ESPRIT 12ème édition (2024 à 2025) / Sélectionné parmi 200+ projets',
+    'edu.d2.title':'Gala des Projets ESPRIT 9ème édition','edu.d2.sub':'2020 à 2021',
+    'lang.ar':'Arabe','lang.ar.lvl':'Langue maternelle','lang.fr':'Français','lang.fr.lvl':'B2 Professionnel','lang.en':'Anglais','lang.en.lvl':'B2 Professionnel',
+    'contact.label':'Me Contacter','contact.title.html':'Construisons quelque chose de <span class="gradient-text">remarquable</span>',
+    'contact.sub':'En recherche de postes d\'ingénieure IA à temps plein. Si vous construisez quelque chose d\'ambitieux, parlons-en.',
+    'contact.avail':'Disponible pour des postes à temps plein / Tunis, Tunisie / Mobilité géographique',
+    'footer.text':'© 2026 Nour Chaabani / Conçu avec précision'
+  }
+};
+
+const ROLES = {
+  en: ['AI Engineer','Data Scientist','MLOps Engineer','LLM Developer','RAG Architect'],
+  fr: ['Ingénieure IA','Data Scientist','Ingénieure MLOps','Développeuse LLM','Architecte RAG']
+};
+
+let currentLang = 'en';
+
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  const t = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n; if(t[k]!==undefined) el.textContent=t[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k=el.dataset.i18nHtml; if(t[k]!==undefined) el.innerHTML=t[k];
+  });
+  // update typewriter language
+  rolesArr = ROLES[lang];
+  ri=0; ci=0; del=false;
+  // update lang button labels
+  const lbl = lang==='en'?'FR':'EN';
+  document.getElementById('lang-btn').textContent=lbl;
+  document.getElementById('lang-btn-mobile').textContent=lbl;
+  // update hero desc (not in typewriter)
+  const hd=document.querySelector('.hero-desc'); if(hd) hd.textContent=t['hero.desc'];
+  // update scroll label
+  const sc=document.querySelector('.hero-scroll span'); if(sc) sc.textContent=t['hero.scroll'];
+  // update footer
+  const ft=document.querySelector('footer p'); if(ft) ft.textContent=t['footer.text'];
+}
+
+function toggleLang(){ setLang(currentLang==='en'?'fr':'en'); }
+
+// ── Typewriter ──
+let rolesArr = ROLES.en;
+let ri=0,ci=0,del=false;
+const tw = document.getElementById('typewriter');
+(function type(){
+  const cur=rolesArr[ri];
+  if(del){tw.textContent=cur.slice(0,--ci);}else{tw.textContent=cur.slice(0,++ci);}
+  if(!del&&ci===cur.length){del=true;setTimeout(type,2200);return;}
+  if(del&&ci===0){del=false;ri=(ri+1)%rolesArr.length;setTimeout(type,400);return;}
+  setTimeout(type,del?55:95);
+})();
+
+// ── Scroll reveal ──
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── Counters ──
+const cObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target,target=+el.dataset.count,suf=el.dataset.suffix||'';
+    let cur=0;
+    const t=setInterval(()=>{cur=Math.min(cur+Math.ceil(target/35),target);el.textContent=cur+(cur>=target?suf:'');if(cur>=target)clearInterval(t);},45);
+    cObs.unobserve(el);
+  });
+},{threshold:0.6});
+document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+</script>
+</body>
+</html>
