@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
+  <script>document.documentElement.dataset.theme=localStorage.getItem('nc-theme')||'dark'</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nour Chaabani — AI Engineer</title>
   <!-- SEO & Social Preview -->
@@ -447,6 +448,126 @@
     .term-hint span:hover{text-decoration:underline}
     @media(max-width:600px){.term-body{font-size:.74rem;padding:1rem 1rem;min-height:260px}.term-input-row{padding:.5rem 1rem .9rem}}
 
+    /* ══════════════════════════════════════════
+       DESIGN ELEVATION
+    ══════════════════════════════════════════ */
+
+    /* Animated gradient hero name */
+    @keyframes gradientFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    .hero-name .gradient-text{background:linear-gradient(135deg,var(--cyan),var(--violet),#06d6f0,#a855f7);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientFlow 6s ease infinite}
+
+    /* Animated nav logo */
+    .nav-logo{background:linear-gradient(135deg,var(--cyan),var(--violet),var(--cyan));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientFlow 4s ease infinite}
+
+    /* Section label gradient line */
+    .section-label::before{background:linear-gradient(90deg,var(--cyan),var(--violet))!important}
+
+    /* Better letter-spacing */
+    .hero-name{letter-spacing:-.04em}
+    .section-title{letter-spacing:-.03em}
+    .stat-number{letter-spacing:-.03em;line-height:.95}
+
+    /* Primary button shine sweep */
+    .btn-primary{position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(6,182,212,.22)}
+    .btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:left .55s ease;pointer-events:none}
+    .btn-primary:hover::before{left:160%}
+    .btn-primary:hover{box-shadow:0 10px 35px rgba(6,182,212,.38),0 0 0 1px rgba(6,182,212,.2)}
+
+    /* Better card hover shadows (dark) */
+    .proj-card:hover{box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(139,92,246,.12);border-color:rgba(139,92,246,.28)}
+    .skill-card:hover{box-shadow:0 8px 30px rgba(6,182,212,.07)}
+
+    /* Theme toggle button */
+    .theme-btn{background:transparent;border:1px solid var(--border-2);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--text-2);cursor:pointer;transition:all .25s;font-size:.88rem;flex-shrink:0}
+    .theme-btn:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+    .mobile-nav .theme-btn{width:48px;height:48px;font-size:1.1rem;border-radius:50%}
+
+    /* ══════════════════════════════════════════
+       LIGHT THEME
+    ══════════════════════════════════════════ */
+    [data-theme="light"]{
+      --bg:#F5F7FA;--surface:#FFFFFF;--surface-2:#EEF2F8;
+      --text:#0F172A;--text-2:#334155;--text-3:#64748B;
+      --border:rgba(15,23,42,.07);--border-2:rgba(15,23,42,.14);
+      --cyan-dim:rgba(6,182,212,.09);--violet-dim:rgba(139,92,246,.08);
+    }
+    [data-theme="light"] body{color:#0F172A}
+    /* Nav */
+    [data-theme="light"] nav.scrolled{background:rgba(245,247,250,.96)!important;border-color:rgba(15,23,42,.09)!important}
+    /* Hero */
+    [data-theme="light"] .hero-grid{background-image:linear-gradient(rgba(15,23,42,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.03) 1px,transparent 1px)}
+    [data-theme="light"] .orb-1{background:radial-gradient(circle,rgba(6,182,212,.22) 0%,transparent 70%)}
+    [data-theme="light"] .orb-2{background:radial-gradient(circle,rgba(139,92,246,.18) 0%,transparent 70%)}
+    [data-theme="light"] .orb-3{background:radial-gradient(circle,rgba(16,185,129,.13) 0%,transparent 70%)}
+    [data-theme="light"] .hero-badge{background:rgba(6,182,212,.09);border-color:rgba(6,182,212,.28)}
+    [data-theme="light"] .hero-scroll{color:#94A3B8}
+    /* Sections */
+    [data-theme="light"] #about{background:#F5F7FA}
+    [data-theme="light"] #skills{background:#FFFFFF}
+    [data-theme="light"] #projects{background:#F5F7FA}
+    [data-theme="light"] #experience{background:#FFFFFF}
+    [data-theme="light"] #education{background:#F5F7FA}
+    [data-theme="light"] #terminal{background:#FFFFFF}
+    [data-theme="light"] #contact{background:#F5F7FA}
+    /* Stats */
+    [data-theme="light"] .stats-strip{background:#FFFFFF;border-color:rgba(15,23,42,.08)}
+    /* Cards */
+    [data-theme="light"] .skill-card{background:rgba(255,255,255,.88);border-color:rgba(15,23,42,.1)}
+    [data-theme="light"] .skill-card:hover{border-color:rgba(6,182,212,.38);box-shadow:0 8px 32px rgba(6,182,212,.1)}
+    [data-theme="light"] .proj-card{background:#FFFFFF;border-color:rgba(15,23,42,.09)}
+    [data-theme="light"] .proj-card:hover{box-shadow:0 16px 48px rgba(15,23,42,.1),0 0 0 1px rgba(139,92,246,.12);border-color:rgba(139,92,246,.25)}
+    [data-theme="light"] .feat-card{background:#FFFFFF;border-color:rgba(15,23,42,.09)}
+    [data-theme="light"] .feat-card:hover{border-color:rgba(6,182,212,.3);box-shadow:0 8px 36px rgba(15,23,42,.07)}
+    [data-theme="light"] .edu-card{background:#FFFFFF;border-color:rgba(15,23,42,.09)}
+    [data-theme="light"] .edu-card:hover{border-color:rgba(15,23,42,.16)}
+    [data-theme="light"] .cert-item{background:#FFFFFF;border-color:rgba(15,23,42,.09);border-left-color:var(--cyan)}
+    [data-theme="light"] .cert-item:hover{border-left-color:var(--violet)}
+    [data-theme="light"] .distinction-item{background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(239,68,68,.04));border-color:rgba(245,158,11,.22)}
+    [data-theme="light"] .ccard{background:#FFFFFF;border-color:rgba(15,23,42,.1)}
+    [data-theme="light"] .ccard:hover{border-color:var(--cyan);box-shadow:0 10px 28px rgba(15,23,42,.1)}
+    /* Pills */
+    [data-theme="light"] .pill{background:#F1F5F9;border-color:rgba(15,23,42,.1);color:#475569}
+    [data-theme="light"] .pill:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+    /* Timeline */
+    [data-theme="light"] .tl-period{background:#EEF2F8;color:#475569}
+    [data-theme="light"] .timeline::before{opacity:.4}
+    [data-theme="light"] .tl-dot.c{box-shadow:0 0 12px rgba(6,182,212,.45)}
+    [data-theme="light"] .tl-dot.v{box-shadow:0 0 12px rgba(139,92,246,.45)}
+    /* Gallery */
+    [data-theme="light"] [data-gallery],[data-theme="light"] .gal-img{background:#F1F5F9}
+    [data-theme="light"] .gal-btn{background:rgba(248,250,252,.92);border-color:rgba(15,23,42,.14);color:#0F172A}
+    /* Mobile nav */
+    [data-theme="light"] .mobile-nav{background:rgba(245,247,250,.98)}
+    [data-theme="light"] .mobile-nav a{color:#334155}
+    [data-theme="light"] .mobile-nav a:hover{color:var(--cyan)}
+    /* Modal */
+    [data-theme="light"] .modal-overlay{background:rgba(15,23,42,.62)}
+    [data-theme="light"] .modal{background:#FFFFFF;border-color:rgba(15,23,42,.12)}
+    [data-theme="light"] .modal-body h3{border-color:rgba(15,23,42,.08)}
+    [data-theme="light"] .modal-close{border-color:rgba(15,23,42,.14);color:#334155}
+    [data-theme="light"] .modal-close:hover{background:#F1F5F9;color:#0F172A;border-color:rgba(15,23,42,.22)}
+    /* Tags */
+    [data-theme="light"] .proj-tech span,[data-theme="light"] .ttag,[data-theme="light"] .modal-tech span{background:#F1F5F9;border-color:rgba(15,23,42,.1);color:#475569}
+    [data-theme="light"] .stag{background:#F1F5F9;border-color:rgba(15,23,42,.1);color:#475569}
+    [data-theme="light"] .stag.c{background:rgba(6,182,212,.08);color:var(--cyan);border-color:rgba(6,182,212,.28)}
+    [data-theme="light"] .stag.v{background:rgba(139,92,246,.07);color:var(--violet);border-color:rgba(139,92,246,.28)}
+    /* Read more */
+    [data-theme="light"] .read-more-btn{border-color:rgba(15,23,42,.15);color:#334155}
+    [data-theme="light"] .read-more-btn:hover{background:var(--cyan-dim);border-color:var(--cyan);color:var(--cyan)}
+    /* Footer */
+    [data-theme="light"] footer{background:#FFFFFF;border-color:rgba(15,23,42,.08)}
+    /* Scrollbar */
+    [data-theme="light"] ::-webkit-scrollbar-track{background:#F1F5F9}
+    [data-theme="light"] ::-webkit-scrollbar-thumb{background:#CBD5E1}
+    /* Cursor ring in light */
+    [data-theme="light"] #cursor-ring{border-color:rgba(6,182,212,.5)}
+    /* Card spotlight in light */
+    [data-theme="light"] .skill-card::after{background:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(6,182,212,.1),transparent 72%)}
+    [data-theme="light"] .proj-card::after{background:radial-gradient(200px circle at var(--cx,50%) var(--cy,50%),rgba(139,92,246,.1),transparent 72%)}
+    /* Hamburger in light */
+    [data-theme="light"] .hamburger span{background:#475569}
+    [data-theme="light"] .hamburger.open span{background:var(--cyan)}
+
   </style>
 </head>
 <body>
@@ -461,7 +582,10 @@
   <a href="#projects" onclick="closeMobileNav()" data-i18n="nav.projects">Projects</a>
   <a href="#experience" onclick="closeMobileNav()" data-i18n="nav.experience">Experience</a>
   <a href="#contact" onclick="closeMobileNav()" data-i18n="nav.contact">Contact</a>
-  <button class="lang-btn" onclick="toggleLang();closeMobileNav()" id="lang-btn-mobile">FR</button>
+  <div style="display:flex;gap:.75rem;align-items:center;margin-top:1rem">
+    <button class="lang-btn" onclick="toggleLang();closeMobileNav()" id="lang-btn-mobile" style="font-size:.9rem;padding:.5rem 1.5rem">FR</button>
+    <button class="theme-btn" onclick="toggleTheme();closeMobileNav()" id="theme-btn-mobile" aria-label="Toggle theme"><i class="fas fa-moon" id="theme-icon-mobile"></i></button>
+  </div>
 </div>
 
 <nav id="navbar">
@@ -476,6 +600,7 @@
     </ul>
     <div class="nav-right">
       <button class="lang-btn" onclick="toggleLang()" id="lang-btn">FR</button>
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme"><i class="fas fa-moon" id="theme-icon"></i></button>
       <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -904,6 +1029,27 @@
 </div>
 
 <script>
+// ── Theme toggle ──
+function _syncThemeIcons(){
+  const light = document.documentElement.dataset.theme === 'light';
+  const cls = light ? 'fas fa-sun' : 'fas fa-moon';
+  ['theme-icon','theme-icon-mobile'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.className=cls;
+  });
+  // Update lang-btn border in light mode
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.style.borderColor = light ? '' : '';
+  });
+}
+function toggleTheme(){
+  const html=document.documentElement;
+  html.dataset.theme = html.dataset.theme==='light' ? 'dark' : 'light';
+  localStorage.setItem('nc-theme', html.dataset.theme);
+  _syncThemeIcons();
+}
+// Sync icons after DOM is ready (theme was already set by inline script in <head>)
+document.addEventListener('DOMContentLoaded', _syncThemeIcons);
+
 // ── Profile image ──
 (function(){
   const paths = ["my_image.png","./my_image.png","../my_image.png"];
