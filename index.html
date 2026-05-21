@@ -1261,11 +1261,138 @@ const MODAL_DATA = {
   }
 };
 
+const MODAL_DATA_FR = {
+  amenBank: {
+    company: "Amen Bank · Fév à Juin 2026",
+    title: "Plateforme IA d'Évaluation du Risque de Crédit",
+    html: `
+      <h3>De quoi s'agit-il ?</h3>
+      <p>Une plateforme intelligente de risque de crédit prête pour la production, conçue pour Amen Bank, l'une des principales banques tunisiennes. Le système automatise l'évaluation des demandes de crédit grâce au machine learning, remplaçant l'analyse manuelle lente par des décisions de risque instantanées, explicables et conformes aux réglementations. Il sert trois types d'utilisateurs : les clients souhaitant connaître leur score de crédit, les analystes bancaires ayant besoin de profils de risque détaillés, et les administrateurs surveillant l'ensemble du portefeuille.</p>
+      <h3>Pipeline de Machine Learning</h3>
+      <p>Entraîné sur plus de 22 000 dossiers réels d'Amen Bank avec un déséquilibre de classes de 12:1. Utilisation du Weight of Evidence (WoE) et de l'Information Value (IV) pour la sélection de features, réduisant 18 variables à 11 plus prédictives. EasyEnsembleClassifier avec calibration Platt Scaling convertit les sorties brutes en probabilités réalistes. Résultat : coefficient de Gini de 0,43, dépassant le seuil réglementaire de 0,40.</p>
+      <h3>Classification du Risque IFRS 9</h3>
+      <ul>
+        <li>Étape 1 (PD inférieure à 5 %) : Approuvé</li>
+        <li>Étape 2 (PD entre 5 et 9 %) : Conditionnel</li>
+        <li>Étape 3 (PD supérieure ou égale à 9 %) : Rejeté</li>
+      </ul>
+      <h3>Pipeline RAG Chatbot</h3>
+      <p>Pipeline complet de Génération Augmentée par Récupération (RAG) construit de zéro. PyMuPDF extrait le texte de 7 PDF réglementaires (IFRS 9, Bâle III, circulaires BCT). LangChain découpe les documents en 7 602 fragments sémantiquement cohérents stockés dans ChromaDB. Groq Llama 3.3-70B génère des réponses en langage naturel ancrées dans le contexte récupéré. Le chatbot adapte ses réponses selon le rôle utilisateur : explications simples et empathiques pour les clients, langage réglementaire technique pour les analystes, et perspectives de gouvernance pour les administrateurs.</p>
+      <h3>Fonctionnalités de la Plateforme</h3>
+      <ul>
+        <li>Scoring en temps réel en moins de 500 ms avec graphiques d'explication SHAP</li>
+        <li>Inférence par lot jusqu'à 25 000 dossiers avec export PDF et Excel</li>
+        <li>Simulateur What-If : ajustez le salaire, le ratio d'endettement et le montant du prêt avec des curseurs et observez le changement de PD en temps réel</li>
+        <li>Comparaison de clients avec graphiques radar côte à côte</li>
+        <li>Analytique de portefeuille avec taux d'approbation, répartition par agence et ventilation par étape</li>
+        <li>Surveillance de dérive PSI pour détecter la dégradation du modèle dans le temps</li>
+        <li>Authentification JWT, RBAC avec 3 rôles, limitation de débit et piste d'audit complète</li>
+      </ul>
+    `
+  },
+  vigilantx: {
+    company: "Value · Jan à Juin 2025",
+    title: "VigilantX — Plateforme IA de Due Diligence",
+    html: `
+      <h3>De quoi s'agit-il ?</h3>
+      <p>Une plateforme de due diligence propulsée par l'IA, conçue pour la prochaine génération d'investisseurs crypto, d'auditeurs, d'analystes et d'équipes de conformité. Dans une ère de désinformation et de données fragmentées, VigilantX apporte confiance, intelligence et rapidité au financement de la due diligence.</p>
+      <h3>Fonctionnalités Clés</h3>
+      <ul>
+        <li>Analyse automatisée de documents : extraction, nettoyage et traitement des fichiers en quelques secondes</li>
+        <li>Questions-réponses contextuelles : posez des questions professionnelles, obtenez des réponses de qualité audit</li>
+        <li>Détection de signaux d'alarme : identification des risques de conformité cachés et des divulgations manquantes</li>
+        <li>Moteur de scoring de risque : quantification du risque à partir de signaux légaux, financiers et de gouvernance</li>
+        <li>Rapports PPTX instantanés : slides prêts pour les investisseurs en un clic</li>
+        <li>Scraping web en direct et SEC pour l'enrichissement de données en temps réel</li>
+        <li>Garantie de fidélité : réponses basées sur des preuves, sans hallucinations</li>
+        <li>Supervision humaine dans la boucle pour une fiabilité totale</li>
+        <li>Prévision du marché crypto sur 60 jours couvrant plus de 50 tokens majeurs</li>
+        <li>Plus de 1 200 questions élaborées par des experts dans les dimensions légales, de conformité, opérationnelles et stratégiques</li>
+        <li>Constructeur de portefeuille Frontière Efficiente pour maximiser les rendements avec un risque optimal</li>
+        <li>Recommandeur de stratégie Achat/Vente basé sur le contexte des données</li>
+        <li>Questions-réponses par commande vocale pour une analyse mains libres</li>
+        <li>Crawlers web propulsés par LLM synthétisant automatiquement dépôts, articles et divulgations</li>
+      </ul>
+      <h3>Échelle de Production</h3>
+      <p>Déployé en microservices évolutifs capables de gérer plus de 10 000 requêtes quotidiennes avec une disponibilité de 99,9 %. Sélectionné comme Meilleur Projet de l'Année à l'ESPRIT 2025 parmi plus de 200 projets concurrents.</p>
+    `
+  },
+  agentic: {
+    company: "Value · Juin à Août 2025",
+    title: "Plateforme Agentique d'Intelligence Économique",
+    html: `
+      <h3>De quoi s'agit-il ?</h3>
+      <p>Une plateforme d'IA agentique combinant la génération augmentée par récupération, la recherche intelligente et des tableaux de bord interactifs pour livrer des insights économiques en temps réel. Construite en deux mois, la plateforme intègre les services Azure AI pour une orchestration autonome des workflows métier.</p>
+      <h3>Chatbot avec RAG et Raisonnement</h3>
+      <p>Propulsé par Mistral comme modèle central, connecté à une base vectorielle FAISS d'indicateurs économiques. Si la réponse existe localement, FAISS la récupère instantanément. Sinon, l'agent utilise Serper pour une recherche ciblée, puis un scraper Dockerisé (Flaresolver et Playwright) récupère et analyse les données fraîches. Le système met continuellement à jour FAISS, permettant des réponses raisonnées et à jour.</p>
+      <h3>Tableau de Bord Interactif</h3>
+      <ul>
+        <li>Module d'analytique de marché avec sélection d'indicateurs, filtrage par plage temporelle et options de visualisation</li>
+        <li>Tendances des indicateurs économiques avec graphiques dynamiques tels que l'inflation dans le temps</li>
+        <li>Cartes récapitulatives d'intelligence économique affichant le total des indicateurs, catégories, KPIs bancaires et dernière année de données</li>
+      </ul>
+      <h3>Intégration Azure</h3>
+      <p>Services Azure AI intégrés avec Power Automate pour orchestrer des pipelines intelligents, réduisant l'intervention manuelle dans les workflows métier automatisés. APIs REST conçues pour une communication inter-agents fluide et optimisées pour la scalabilité en charge de production.</p>
+    `
+  },
+  fraud: {
+    company: "Mini-projet d'1 semaine",
+    title: "Pipeline de Détection de Fraude en Temps Réel",
+    html: `
+      <h3>De quoi s'agit-il ?</h3>
+      <p>Un système de détection de fraude de bout en bout construit de zéro en une semaine, des données de transactions brutes déséquilibrées jusqu'au déploiement de production entièrement conteneurisé. Inspiré des patterns de fraude financière réels.</p>
+      <h3>Approche Technique</h3>
+      <ul>
+        <li>Traitement de jeux de données très déséquilibrés où les cas de fraude sont rares mais coûteux</li>
+        <li>Modèle d'ensemble hybride par empilement avec ajustement personnalisé du seuil pour maximiser le rappel de fraude</li>
+        <li>Tableau de bord Streamlit avec curseur de seuil interactif : ajuster le seuil affiche instantanément les changements de précision et de rappel</li>
+        <li>Cartes KPI affichant précision, rappel, accuracy et AUC d'un coup d'œil</li>
+        <li>Explorateur de cas de fraude et interface de surveillance en temps réel</li>
+        <li>Déploiement Docker complet : fonctionne partout, entièrement prêt pour la production</li>
+        <li>Pipeline ML reproductible de l'ingestion au prétraitement, modélisation et surveillance</li>
+      </ul>
+      <h3>Résultats</h3>
+      <ul>
+        <li>Accuracy : 99,8 %</li>
+        <li>Rappel Fraude : 93 %</li>
+        <li>Précision Fraude : 42 %</li>
+        <li>PR AUC : 0,88</li>
+      </ul>
+    `
+  },
+  cvRanking: {
+    company: "Projet de Recrutement IA",
+    title: "Système IA de Classement de CV",
+    html: `
+      <h3>De quoi s'agit-il ?</h3>
+      <p>Un assistant de recrutement IA intelligent qui met en correspondance les candidats avec les descriptions de postes grâce à la compréhension sémantique, au raisonnement basé sur les graphes et à l'explicabilité par LLM. Le système classe des milliers de CV avec précision et explique chaque décision.</p>
+      <h3>Comment ça Fonctionne</h3>
+      <ul>
+        <li>Entrez une description de poste</li>
+        <li>Le modèle fine-tuné prédit la catégorie de rôle la plus pertinente</li>
+        <li>FAISS récupère les CV sémantiquement similaires (Recall@5 : 0,86, MRR : 0,80)</li>
+        <li>Le graphe de connaissances Neo4j identifie les compétences communes et les relations entre candidats et rôles</li>
+        <li>LLaMA 3.1-8B via Ollama explique pourquoi chaque candidat correspond au rôle</li>
+      </ul>
+      <h3>Stack Technique</h3>
+      <ul>
+        <li>sentence-transformers MiniLM fine-tuné sur 24 catégories de postes : F1-score 92 % et accuracy test 81 %</li>
+        <li>Base vectorielle FAISS pour la récupération par similarité sémantique</li>
+        <li>Graphe de connaissances Neo4j : candidats, compétences et rôles connectés pour un raisonnement explicable</li>
+        <li>Orchestration LangGraph et LangChain combinant récupération sémantique, raisonnement symbolique et explication en langage naturel</li>
+        <li>Couche d'explicabilité SHAP par-dessus les explications générées par LLM</li>
+      </ul>
+    `
+  }
+};
+
 function openModal(projectKey) {
   const data = MODAL_DATA[projectKey]; if(!data) return;
-  document.getElementById('modal-company').textContent = data.company;
-  document.getElementById('modal-title').textContent = data.title;
-  document.getElementById('modal-body').innerHTML = data.html + `<div class="modal-tech">${data.tech.map(t=>`<span>${t}</span>`).join('')}</div>`;
+  const fr = currentLang === 'fr';
+  const loc = (fr && MODAL_DATA_FR[projectKey]) ? MODAL_DATA_FR[projectKey] : data;
+  document.getElementById('modal-company').textContent = loc.company;
+  document.getElementById('modal-title').textContent = loc.title;
+  document.getElementById('modal-body').innerHTML = loc.html + `<div class="modal-tech">${data.tech.map(t=>`<span>${t}</span>`).join('')}</div>`;
 
   // Set up modal gallery
   const imgs = GALLERIES[projectKey];
