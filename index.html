@@ -483,6 +483,40 @@
     .mobile-nav .theme-btn{width:48px;height:48px;font-size:1.1rem;border-radius:50%}
 
     /* ══════════════════════════════════════════
+       FURTHER UI ELEVATION
+    ══════════════════════════════════════════ */
+
+    /* Skill card icon — gradient bubble */
+    .skill-card-icon{font-size:1.35rem;margin-bottom:1.25rem;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cyan-dim),var(--violet-dim));border:1px solid var(--border-2);transition:transform .35s,box-shadow .35s}
+    .skill-card:hover .skill-card-icon{transform:scale(1.14) rotate(-6deg);box-shadow:0 4px 18px rgba(6,182,212,.18)}
+
+    /* Section title gradient underline */
+    .section-title::after{content:'';display:block;width:36px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:2px;margin-top:.85rem}
+
+    /* Project company accent line */
+    .proj-company{display:flex;align-items:center;gap:.4rem}
+    .proj-company::before{content:'';width:14px;height:1.5px;flex-shrink:0;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:1px}
+
+    /* Featured metrics — card boxes */
+    .feat-metrics>div{padding:.65rem 1rem;background:rgba(15,23,42,.35);border:1px solid var(--border);border-radius:10px;transition:border-color .3s,transform .25s}
+    .feat-metrics>div:hover{border-color:rgba(6,182,212,.28);transform:translateY(-2px)}
+    [data-theme="light"] .feat-metrics>div{background:var(--surface-2);border-color:rgba(15,23,42,.09)}
+
+    /* Availability badge */
+    .availability{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:50px;padding:.65rem 1.6rem}
+    [data-theme="light"] .availability{background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.22)}
+
+    /* Footer — gradient divider */
+    footer{position:relative;border-top:none!important}
+    footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent)}
+    [data-theme="light"] footer::before{background:linear-gradient(90deg,transparent,rgba(6,182,212,.3),rgba(139,92,246,.3),transparent)}
+
+    /* Proj card top accent on hover */
+    .proj-card{position:relative}
+    .proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .4s;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(90deg,var(--cyan),var(--violet));pointer-events:none;z-index:1}
+    .proj-card:hover::before{opacity:1}
+
+    /* ══════════════════════════════════════════
        LIGHT THEME
     ══════════════════════════════════════════ */
     [data-theme="light"]{
@@ -699,8 +733,8 @@
         <div class="gal-dots"></div>
       </div>
       <div class="feat-body">
-        <div class="feat-company">Amen Bank &nbsp; Feb to Jun 2026</div>
-        <h3 class="feat-title">AI Credit Risk <span class="gradient-text">Scoring Platform</span></h3>
+        <div class="feat-company" data-i18n="feat.company">Amen Bank · Feb to Jun 2026</div>
+        <h3 class="feat-title" data-i18n-html="feat.title.html">AI Credit Risk <span class="gradient-text">Scoring Platform</span></h3>
         <p class="feat-desc" data-i18n="feat.desc.amen">Architected a production-ready credit scoring platform on real Amen Bank loan data (React, Node.js, FastAPI, PostgreSQL), containerized with Docker Compose and shipped via GitHub Actions CI/CD. Trained an EasyEnsembleClassifier on 22,000+ imbalanced records with WoE/IV feature selection, automating PD/LGD/EAD decisions compliant with IFRS 9 and Basel III. Built an NLP pipeline powering a RAG chatbot (Llama 3.3-70B) with role-aware multilingual credit explanations via SHAP and prompt engineering.</p>
         <div class="feat-metrics">
           <div><div class="feat-metric-val">22K+</div><div class="feat-metric-lbl" data-i18n="feat.metric.records">Real loan records</div></div>
@@ -730,8 +764,8 @@
           <div class="gal-dots"></div>
         </div>
         <div class="proj-body">
-          <div class="proj-company">Value / Jan to Jun 2025</div>
-          <h3 class="proj-title">VigilantX — AI Due Diligence Platform</h3>
+          <div class="proj-company" data-i18n="proj.company.vx">Value / Jan to Jun 2025</div>
+          <h3 class="proj-title" data-i18n="proj.title.vx">VigilantX — AI Due Diligence Platform</h3>
           <p class="proj-desc" data-i18n="proj.desc.vx">Developed a Django-based application integrating advanced semantic segmentation, a RAG architecture, and automated fact-checking mechanisms. Designed intelligent PPTX reports automatically generated using LLMs, connected to real-time financial APIs. Deployed scalable microservices capable of handling 10,000+ daily requests with 99.9% availability.</p>
           <div class="proj-tech"><span>Django</span><span>RAG</span><span>LLM</span><span>FastAPI</span><span>Microservices</span></div>
           <div class="proj-footer">
@@ -752,8 +786,8 @@
           <div class="gal-dots"></div>
         </div>
         <div class="proj-body">
-          <div class="proj-company">Value / Jun to Aug 2025</div>
-          <h3 class="proj-title">Agentic Economic Intelligence Platform</h3>
+          <div class="proj-company" data-i18n="proj.company.ag">Value / Jun to Aug 2025</div>
+          <h3 class="proj-title" data-i18n="proj.title.ag">Agentic Economic Intelligence Platform</h3>
           <p class="proj-desc" data-i18n="proj.desc.ag">Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision making and task coordination across Microsoft Azure services. Integrated Azure AI services with Power Automate to orchestrate intelligent pipelines.</p>
           <div class="proj-tech"><span>Mistral</span><span>LangChain</span><span>AutoGen</span><span>FAISS</span><span>FastAPI</span><span>Docker</span></div>
           <div class="proj-footer">
@@ -774,8 +808,8 @@
           <div class="gal-dots"></div>
         </div>
         <div class="proj-body">
-          <div class="proj-company">1-Week Mini Project</div>
-          <h3 class="proj-title">Real-Time Fraud Detection Pipeline</h3>
+          <div class="proj-company" data-i18n="proj.company.fraud">1-Week Mini Project</div>
+          <h3 class="proj-title" data-i18n="proj.title.fraud">Real-Time Fraud Detection Pipeline</h3>
           <p class="proj-desc" data-i18n="proj.desc.fr">Designed a production-ready fraud detection pipeline with real-time threshold tuning, KPI monitoring, and dockerized deployment, achieving 93% fraud recall on real-world data.</p>
           <div class="proj-tech"><span>Python</span><span>XGBoost</span><span>Ensemble</span><span>Docker</span><span>Streamlit</span></div>
           <div class="proj-footer">
@@ -796,8 +830,8 @@
           <div class="gal-dots"></div>
         </div>
         <div class="proj-body">
-          <div class="proj-company">AI Recruitment Project</div>
-          <h3 class="proj-title">AI CV Ranking System</h3>
+          <div class="proj-company" data-i18n="proj.company.cvr">AI Recruitment Project</div>
+          <h3 class="proj-title" data-i18n="proj.title.cvr">AI CV Ranking System</h3>
           <p class="proj-desc" data-i18n="proj.desc.cv">Built an end-to-end CV ranking pipeline using Python, HuggingFace MiniLM, ChromaDB, Groq LLM, SHAP, and LIME. Implemented semantic search, LLM-based evaluation, hybrid scoring, and XAI explanations to rank 3K+ resumes with high accuracy.</p>
           <div class="proj-tech"><span>HuggingFace</span><span>FAISS</span><span>Neo4j</span><span>LangGraph</span><span>Groq</span><span>SHAP</span></div>
           <div class="proj-footer">
@@ -815,8 +849,8 @@
           <span class="proj-badge b-cv">Computer Vision</span>
         </div>
         <div class="proj-body">
-          <div class="proj-company">Notable Project</div>
-          <h3 class="proj-title">Brain Tumor Detection Platform</h3>
+          <div class="proj-company" data-i18n="proj.company.notable">Notable Project</div>
+          <h3 class="proj-title" data-i18n="proj.title.br">Brain Tumor Detection Platform</h3>
           <p class="proj-desc" data-i18n="proj.desc.br">Trained CNNs and transfer learning models (DenseNet121, VGG16) to detect tumors in MRI scans, achieving 94% accuracy and 30% faster training.</p>
           <div class="proj-tech"><span>TensorFlow</span><span>DenseNet121</span><span>VGG16</span><span>OpenCV</span><span>Python</span></div>
           <div class="proj-footer">
@@ -833,8 +867,8 @@
           <span class="proj-badge b-ml">MLOps</span>
         </div>
         <div class="proj-body">
-          <div class="proj-company">Notable Project</div>
-          <h3 class="proj-title">Churn Prediction with MLOps</h3>
+          <div class="proj-company" data-i18n="proj.company.notable">Notable Project</div>
+          <h3 class="proj-title" data-i18n="proj.title.ch">Churn Prediction with MLOps</h3>
           <p class="proj-desc" data-i18n="proj.desc.ch">Identified customers at risk of churn using XGBoost (87% F1-score) and business indicators, automated with MLOps for retraining and monitoring. Reduced update time by 60% via CI/CD.</p>
           <div class="proj-tech"><span>XGBoost</span><span>MLOps</span><span>CI/CD</span><span>Python</span><span>Docker</span></div>
           <div class="proj-footer">
@@ -855,7 +889,7 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot c"></div>
-        <div class="tl-head"><div class="tl-role" data-i18n="exp.amen.role">AI Credit Risk Engineer</div><span class="tl-period">Feb to Jun 2026</span></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.amen.role">AI Credit Risk Engineer</div><span class="tl-period" data-i18n="period.amen">Feb to Jun 2026</span></div>
         <div class="tl-company">Amen Bank</div>
         <ul class="tl-points">
           <li data-i18n="exp.amen.li1">Architected a production-ready credit scoring platform on real loan data (React, FastAPI, PostgreSQL), containerized with Docker and shipped via GitHub Actions CI/CD</li>
@@ -867,7 +901,7 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot v"></div>
-        <div class="tl-head"><div class="tl-role" data-i18n="exp.v2.role">AI Engineer Intern</div><span class="tl-period">Jun to Aug 2025</span></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.v2.role">AI Engineer Intern</div><span class="tl-period" data-i18n="period.v2">Jun to Aug 2025</span></div>
         <div class="tl-company">Value</div>
         <ul class="tl-points">
           <li data-i18n="exp.v2.li1">Architected an Agentic AI system (LangChain, AutoGen, FastAPI) with autonomous multi-agent workflows for decision-making across Microsoft Azure services</li>
@@ -878,7 +912,7 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot v"></div>
-        <div class="tl-head"><div class="tl-role" data-i18n="exp.v1.role">AI Engineer Intern</div><span class="tl-period">Jan to Jun 2025</span></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.v1.role">AI Engineer Intern</div><span class="tl-period" data-i18n="period.v1">Jan to Jun 2025</span></div>
         <div class="tl-company">Value</div>
         <ul class="tl-points">
           <li data-i18n="exp.v1.li1">Developed a Django application integrating semantic segmentation, RAG architecture, and automated fact-checking mechanisms</li>
@@ -890,7 +924,7 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot e"></div>
-        <div class="tl-head"><div class="tl-role" data-i18n="exp.oss.role">Software Engineer Intern</div><span class="tl-period">Jun to Aug 2024</span></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.oss.role">Software Engineer Intern</div><span class="tl-period" data-i18n="period.oss">Jun to Aug 2024</span></div>
         <div class="tl-company">Sahara and Sahel Observatory</div>
         <ul class="tl-points">
           <li data-i18n="exp.oss.li1">Built a responsive Symfony web application for the OSS conference, enhancing staff management, event logistics, and overall user experience</li>
@@ -899,7 +933,7 @@
 
       <div class="tl-item reveal">
         <div class="tl-dot a"></div>
-        <div class="tl-head"><div class="tl-role" data-i18n="exp.eo.role">Intern, Networking and Systems</div><span class="tl-period">Jun to Jul 2022</span></div>
+        <div class="tl-head"><div class="tl-role" data-i18n="exp.eo.role">Intern, Networking and Systems</div><span class="tl-period" data-i18n="period.eo">Jun to Jul 2022</span></div>
         <div class="tl-company">EO Data Center</div>
         <ul class="tl-points">
           <li data-i18n="exp.eo.li1">Hands-on experience with Cisco technologies including routers, switches, and network protocols administration</li>
@@ -965,9 +999,9 @@
 <section id="terminal">
   <div class="container">
     <div class="reveal" style="text-align:center;margin-bottom:2.5rem">
-      <div class="section-label" style="justify-content:center">Interactive</div>
-      <h2 class="section-title">Interactive Terminal</h2>
-      <p style="color:var(--text-2);font-size:1.05rem">Explore my profile through commands</p>
+      <div class="section-label" style="justify-content:center" data-i18n="terminal.label">Interactive</div>
+      <h2 class="section-title" data-i18n="terminal.title">Interactive Terminal</h2>
+      <p style="color:var(--text-2);font-size:1.05rem" data-i18n="terminal.sub">Explore my profile through commands</p>
     </div>
     <div class="term-wrap reveal d1">
       <div class="term-titlebar">
@@ -1377,7 +1411,33 @@ const I18N = {
     'contact.label':'Get In Touch','contact.title.html':'Let\'s build something <span class="gradient-text">remarkable</span>',
     'contact.sub':'Seeking full-time AI Engineer roles. If you\'re building something ambitious, let\'s talk.',
     'contact.avail':'Available for full-time positions / Tunis, Tunisia / Open to relocation',
-    'footer.text':'© 2026 Nour Chaabani / Built with precision'
+    'footer.text':'© 2026 Nour Chaabani / Built with precision',
+    /* featured card */
+    'feat.company':'Amen Bank · Feb to Jun 2026',
+    'feat.title.html':'AI Credit Risk <span class="gradient-text">Scoring Platform</span>',
+    /* project companies */
+    'proj.company.vx':'Value / Jan to Jun 2025',
+    'proj.company.ag':'Value / Jun to Aug 2025',
+    'proj.company.fraud':'1-Week Mini Project',
+    'proj.company.cvr':'AI Recruitment Project',
+    'proj.company.notable':'Notable Project',
+    /* project titles */
+    'proj.title.vx':'VigilantX — AI Due Diligence Platform',
+    'proj.title.ag':'Agentic Economic Intelligence Platform',
+    'proj.title.fraud':'Real-Time Fraud Detection Pipeline',
+    'proj.title.cvr':'AI CV Ranking System',
+    'proj.title.br':'Brain Tumor Detection Platform',
+    'proj.title.ch':'Churn Prediction with MLOps',
+    /* terminal */
+    'terminal.label':'Interactive',
+    'terminal.title':'Interactive Terminal',
+    'terminal.sub':'Explore my profile through commands',
+    /* experience periods */
+    'period.amen':'Feb to Jun 2026',
+    'period.v2':'Jun to Aug 2025',
+    'period.v1':'Jan to Jun 2025',
+    'period.oss':'Jun to Aug 2024',
+    'period.eo':'Jun to Jul 2022'
   },
   fr: {
     'nav.about':'À propos','nav.skills':'Compétences','nav.projects':'Projets','nav.experience':'Expérience','nav.contact':'Contact',
@@ -1430,7 +1490,33 @@ const I18N = {
     'contact.label':'Me Contacter','contact.title.html':'Construisons quelque chose de <span class="gradient-text">remarquable</span>',
     'contact.sub':'En recherche de postes d\'ingénieure IA à temps plein. Si vous construisez quelque chose d\'ambitieux, parlons-en.',
     'contact.avail':'Disponible pour des postes à temps plein / Tunis, Tunisie / Mobilité géographique',
-    'footer.text':'© 2026 Nour Chaabani / Conçu avec précision'
+    'footer.text':'© 2026 Nour Chaabani / Conçu avec précision',
+    /* featured card */
+    'feat.company':'Amen Bank · Fév à Juin 2026',
+    'feat.title.html':'Plateforme IA de Scoring de <span class="gradient-text">Risque Crédit</span>',
+    /* project companies */
+    'proj.company.vx':'Value / Jan à Juin 2025',
+    'proj.company.ag':'Value / Juin à Août 2025',
+    'proj.company.fraud':'Mini-Projet · 1 Semaine',
+    'proj.company.cvr':'Projet de Recrutement IA',
+    'proj.company.notable':'Projet Notable',
+    /* project titles */
+    'proj.title.vx':'VigilantX — Plateforme IA de Due Diligence',
+    'proj.title.ag':"Plateforme d'Intelligence Économique Agentique",
+    'proj.title.fraud':'Pipeline de Détection de Fraude en Temps Réel',
+    'proj.title.cvr':'Système IA de Classement de CV',
+    'proj.title.br':'Plateforme de Détection de Tumeurs Cérébrales',
+    'proj.title.ch':'Prédiction de Churn avec MLOps',
+    /* terminal */
+    'terminal.label':'Interactif',
+    'terminal.title':'Terminal Interactif',
+    'terminal.sub':'Explorez mon profil via des commandes',
+    /* experience periods */
+    'period.amen':'Fév à Juin 2026',
+    'period.v2':'Juin à Août 2025',
+    'period.v1':'Jan à Juin 2025',
+    'period.oss':'Juin à Août 2024',
+    'period.eo':'Juin à Juil 2022'
   }
 };
 
